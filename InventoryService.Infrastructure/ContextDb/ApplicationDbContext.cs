@@ -8,17 +8,20 @@ using System.Threading.Tasks;
 
 namespace InventoryService.Infrastructure.ContextDb
 {
-  
-        public class ApplicationDbContext : DbContext
-        {
-            public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-            {
-            }
 
-            public DbSet<Personal> Personels { get; set; }
-            public DbSet<Item> Items { get; set; }
-            public DbSet<ItemType> ItemTypes { get; set; }
-           
-        }
+    public class ApplicationDbContext : DbContext
+    {
+
     
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+        }
+        
+
+        public DbSet<Personal> Personels { get; set; }
+        public DbSet<Item> Items { get; set; }
+        public DbSet<ItemType> ItemTypes { get; set; }
+
+    }
+
 }

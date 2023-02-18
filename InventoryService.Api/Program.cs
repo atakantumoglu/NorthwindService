@@ -1,5 +1,8 @@
+using AutoMapper;
+using InventoryService.Application.Mapper.PersonelMapper;
 using InventoryService.Infrastructure.ContextDb;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +11,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlServer("Server=KARGA;Initial Catalog=InventoryServiceDb; Integrated Security=true;TrustServerCertificate=true;",
        m=>m.MigrationsAssembly("InventoryService.Api")));
+
+
+//MAPPER
+var assembly = Assembly.GetExecutingAssembly();
+builder.Services.AddAutoMapper(assembly);
+var mapConfig = new MapperConfiguration(x =>
+{
+    x.AddProfile<PersonelMappingProfile>();
+});
+var mapper = mapConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
 
 
 builder.Services.AddControllers();
