@@ -13,8 +13,10 @@ namespace InventoryService.Application.Mapper.PersonelMapper
     {
         public PersonelMappingProfile()
         {
-            CreateMap<Personal, PersonelCreateDto>().ReverseMap();
-            CreateMap<PersonelResponseDto, Personal>().ReverseMap().ForPath(dest => dest.FullName, s => s.MapFrom(x => x.FirstName + " " + x.LastName));
+            CreateMap<Personel, PersonelUpdateDto>().ReverseMap();
+            CreateMap<Personel, PersonelCreateDto>().ReverseMap();
+            CreateMap<PersonelResponseDto, Personel>().ReverseMap().ForPath(dest => dest.FullName, s => s.MapFrom(x => x.FirstName + " " + x.LastName));
+            CreateMap<Personel, PersonelDeleteDto>().ReverseMap();
         }
     }
 }
