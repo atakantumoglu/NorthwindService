@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using InventoryService.Application.Dtos.PersonelDtos;
+using InventoryService.Application.Services;
 using InventoryService.Domain.Entities;
 using InventoryService.Infrastructure.ContextDb;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace InventoryService.Api.Controllers
@@ -11,51 +13,40 @@ namespace InventoryService.Api.Controllers
     [Route("api/[controller]")]
     public class PersonelController : Controller
     {
-
+        private readonly IPersonelService _personelService;
 
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public PersonelController(ApplicationDbContext context, IMapper mapper)
+        public PersonelController(ApplicationDbContext context, IMapper mapper, IPersonelService personelService)
         {
             _context = context;
             _mapper = mapper;
+            _personelService = personelService;
         }
 
         [HttpGet]
         [Route("get-personel-by-id")]
-        public async Task<ActionResult> GetById(PersonelUpdateDto personelDto)
+        public async Task<ActionResult> GetById(Guid Id)
         {
-            var existingPersonel = await _context.Personels.FindAsync(personelDto.Id);
+            var existingId = await _context.Personels.FirstOrDefaultAsync(x => x.IsDeleted.Equals(false) && x.Id.Equals(Id));
 
-            if (existingPersonel == null)
-            {
-                return NotFound();
-            }
+            var data = _mapper.Map<PersonelResponseDto>(existingId);
 
-            _mapper.Map(personelDto, existingPersonel);
-
-
-            await _context.SaveChangesAsync();
-
-            return Ok(existingPersonel);
+            return Ok(data);
         }
         [HttpGet]
-        public async Task<ActionResult> GetList(PersonelUpdateDto personelDto)
+        public async Task<ActionResult> GetList(bool IsDeleted, int page = 1, int pageSize = 10)
         {
-            var existingPersonel = await _context.Personels.FindAsync(personelDto.Id);
+           
+            var existingPersonel =  _context.Personels.Where(x => x.IsDeleted.Equals(IsDeleted))
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize);
+            var totalRecords = await existingPersonel.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+            var data = _mapper.Map<List<PersonelResponseDto>>(await existingPersonel.ToListAsync());
 
-            if (existingPersonel == null)
-            {
-                return NotFound();
-            }
-
-            _mapper.Map(personelDto, existingPersonel);
-
-
-            await _context.SaveChangesAsync();
-
-            return Ok(existingPersonel);
+            return Ok(new { data, totalRecords, totalPages });
         }
 
         [HttpPut]
@@ -84,33 +75,22 @@ namespace InventoryService.Api.Controllers
         [HttpDelete]
         public async Task<ActionResult> Delete(PersonelDeleteDto personelDto)
         {
-            var existingPersonel = await _context.Personels.FindAsync(personelDto.Id);
+            var result = await _personelService.DeletePersonel(personelDto);
 
-            if (existingPersonel == null)
-            {
-                return NotFound();
-            }
 
-            existingPersonel.IsDeleted = true;
+            return Ok(result);
 
-            await _context.SaveChangesAsync();
 
-            return Ok(existingPersonel);
+      
         }
 
         [HttpPost]
         public async Task<ActionResult> Create(PersonelCreateDto personelDto)
         {
 
-            var personel = _mapper.Map<Personel>(personelDto);
+            var result = await _personelService.CreatePersonel(personelDto);            
 
-            var createdEntity = await _context.AddAsync(personel);
-
-            await _context.SaveChangesAsync();
-
-            var personelResponse = _mapper.Map<PersonelResponseDto>(createdEntity.Entity);
-
-            return Ok(personelResponse);
+            return Ok(result);
 
         }
     }

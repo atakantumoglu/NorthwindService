@@ -17,6 +17,7 @@ namespace InventoryService.Application.Mapper.PersonelMapper
             CreateMap<Personel, PersonelCreateDto>().ReverseMap();
             CreateMap<PersonelResponseDto, Personel>().ReverseMap().ForPath(dest => dest.FullName, s => s.MapFrom(x => x.FirstName + " " + x.LastName));
             CreateMap<Personel, PersonelDeleteDto>().ReverseMap();
+            CreateMap<Personel, PersonelGetListDto>().ReverseMap();
         }
     }
 }
