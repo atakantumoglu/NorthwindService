@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InventoryService.Domain.Entities
 {
-    public class Personal
+    public class Personel
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }
