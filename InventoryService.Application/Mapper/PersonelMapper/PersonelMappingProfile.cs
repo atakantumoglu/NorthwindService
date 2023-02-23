@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace InventoryService.Application.Mapper.PersonelMapper
 {
-    public class PersonelMappingProfile : Profile
+    public class PersonelMapperProfile : Profile
     {
-        public PersonelMappingProfile()
+        public PersonelMapperProfile()
         {
             CreateMap<Personel, PersonelUpdateDto>().ReverseMap();
             CreateMap<Personel, PersonelCreateDto>().ReverseMap();
             CreateMap<PersonelResponseDto, Personel>().ReverseMap().ForPath(dest => dest.FullName, s => s.MapFrom(x => x.FirstName + " " + x.LastName));
             CreateMap<Personel, PersonelDeleteDto>().ReverseMap();
-            CreateMap<Personel, PersonelGetListDto>().ReverseMap();
+            CreateMap<Personel, GetPersonelListDto>().ReverseMap();
         }
     }
 }

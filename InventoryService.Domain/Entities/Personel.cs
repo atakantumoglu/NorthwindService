@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InventoryService.Domain.Entities
 {
-    public class Personel
+    public class Personel : BaseEntity
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }
@@ -15,11 +15,6 @@ namespace InventoryService.Domain.Entities
         public TitleEnum TitleId { get; set; }
         public string TCKN { get; set; }
         public DateTime BirthDate { get; set; }
-        public Guid CreatorId { get; set; }
-        public DateTime CreationTime { get; set; }
-        public Guid LastModifierId { get; set; }
-        public DateTime LastModificationTime { get; set; }
-        public bool IsDeleted { get; set; }
 
     }
 }

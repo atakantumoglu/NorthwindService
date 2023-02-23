@@ -1,6 +1,8 @@
 using AutoMapper;
+using InventoryService.Application.Mapper.ItemMapper;
 using InventoryService.Application.Mapper.PersonelMapper;
-using InventoryService.Application.Services;
+using InventoryService.Application.Services.Abstract;
+using InventoryService.Application.Services.Concrete;
 using InventoryService.Infrastructure.ContextDb;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -19,12 +21,14 @@ var assembly = Assembly.GetExecutingAssembly();
 builder.Services.AddAutoMapper(assembly);
 var mapConfig = new MapperConfiguration(x =>
 {
-    x.AddProfile<PersonelMappingProfile>();
+    x.AddProfile<ItemMapperProfile>();
+    x.AddProfile<PersonelMapperProfile>();
 });
 var mapper = mapConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
 builder.Services.AddScoped<IPersonelService, PersonelService>();
+builder.Services.AddScoped<IItemService, ItemService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
