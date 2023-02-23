@@ -19,11 +19,12 @@ namespace InventoryService.Application.Services.Concrete
             _mapper = mapper;
         }
 
-        public async Task<GetItemListDto> GetItemList(bool isDeleted, int page = 1, int pageSize = 10)
+        public async Task<GetItemListDto> GetItemList(bool IsDeleted, int page = 1, int pageSize = 10)
         {
-            var existingItem = _context.Items.Where(x => x.IsDeleted.Equals(isDeleted))
+            var existingItem = _context.Items.Where(x => x.IsDeleted.Equals(IsDeleted))
             .Skip((page - 1) * pageSize)
             .Take(pageSize);
+
             var totalRecords = await existingItem.CountAsync();
             var totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
             var data = _mapper.Map<List<ItemResponseDto>>(await existingItem.ToListAsync());
