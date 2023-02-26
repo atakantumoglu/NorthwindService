@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using AutoMapper.Configuration.Annotations;
 using InventoryService.Application.Dtos.PersonelDtos;
 using InventoryService.Application.Services.Abstract;
 using InventoryService.Domain.Entities;
 using InventoryService.Infrastructure.ContextDb;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace InventoryService.Application.Services.Concrete
@@ -18,24 +16,7 @@ namespace InventoryService.Application.Services.Concrete
         {
             _context = context;
             _mapper = mapper;
-        }
-
-        public async Task<GetPersonelListDto> GetPersonelList(bool IsDeleted, int page = 1, int pageSize = 10)
-        {
-            var existingPersonel = _context.Personels.Where(x => x.IsDeleted.Equals(IsDeleted))
-              .Skip((page - 1) * pageSize)
-              .Take(pageSize);
-            var totalRecords = await existingPersonel.CountAsync();
-            var totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
-            var data = _mapper.Map<List<PersonelResponseDto>>(await existingPersonel.ToListAsync());
-
-            return new GetPersonelListDto
-            {
-                Data = data,
-                totalPages = totalPages,
-                totalRecords = totalRecords
-            };
-        }
+        }       
 
         public async Task<PersonelResponseDto> CreatePersonel(PersonelCreateDto personelDto)
         {
@@ -49,7 +30,6 @@ namespace InventoryService.Application.Services.Concrete
 
             return personelResponse;
         }
-
         public async Task<List<Guid>> UpdatePersonel(List<PersonelUpdateDto> personelDto)
         {
             var result = new List<Guid>();
@@ -65,7 +45,6 @@ namespace InventoryService.Application.Services.Concrete
 
             return result;
         }
-
         public async Task<Personel> DeletePersonel(PersonelDeleteDto personelDto)
         {
             var existingPersonel = await _context.Personels.FindAsync(personelDto.Id);
@@ -81,7 +60,6 @@ namespace InventoryService.Application.Services.Concrete
 
             return existingPersonel;
         }
-
         public async Task<PersonelResponseDto> PersonelGetById(Guid id)
         {
             var existingId = await _context.Personels.FirstOrDefaultAsync(x => x.IsDeleted.Equals(false) && x.Id.Equals(id));
@@ -89,6 +67,22 @@ namespace InventoryService.Application.Services.Concrete
             var result = _mapper.Map<PersonelResponseDto>(existingId);
 
             return result;  
+        }
+        public async Task<GetPersonelListDto> GetPersonelList(bool IsDeleted, int page = 1, int pageSize = 10)
+        {
+            var existingPersonel = _context.Personels.Where(x => x.IsDeleted.Equals(IsDeleted))
+              .Skip((page - 1) * pageSize)
+              .Take(pageSize);
+            var totalRecords = await existingPersonel.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+            var data = _mapper.Map<List<PersonelResponseDto>>(await existingPersonel.ToListAsync());
+
+            return new GetPersonelListDto
+            {
+                Data = data,
+                totalPages = totalPages,
+                totalRecords = totalRecords
+            };
         }
     }
 }
