@@ -1,5 +1,4 @@
 ﻿using InventoryService.Application.Dtos.ItemDtos;
-using InventoryService.Application.Dtos.PersonelDtos;
 using InventoryService.Application.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
@@ -50,8 +49,8 @@ namespace InventoryService.Api.Controllers
         [HttpGet]
         public async Task<ActionResult> GetItemList(bool IsDeleted, int page = 1, int pageSize = 10)
         {
-            var result = _itemService.GetItemList(IsDeleted, page, pageSize);
-            return Ok();
+            var result = await _itemService.GetItemList(IsDeleted, page, pageSize);
+            return Ok(result);
         }
     }
 }

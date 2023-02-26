@@ -16,7 +16,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
        m=>m.MigrationsAssembly("InventoryService.Api")));
 
 
-//MAPPER
+// Mapper Configurations
 var assembly = Assembly.GetExecutingAssembly();
 builder.Services.AddAutoMapper(assembly);
 var mapConfig = new MapperConfiguration(x =>
@@ -27,6 +27,7 @@ var mapConfig = new MapperConfiguration(x =>
 var mapper = mapConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
+// Interface implementations
 builder.Services.AddScoped<IPersonelService, PersonelService>();
 builder.Services.AddScoped<IItemService, ItemService>();
 
