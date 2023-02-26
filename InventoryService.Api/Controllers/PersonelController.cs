@@ -17,25 +17,27 @@ namespace InventoryService.Api.Controllers
             _personelService = personelService;
         }
 
-
         [HttpPost]
         public async Task<ActionResult> Create(PersonelCreateDto personelDto)
         {
             var result = await _personelService.CreatePersonel(personelDto);
             return Ok(result);
         }
+
         [HttpPut]
         public async Task<ActionResult> Update(List<PersonelUpdateDto> personelDto)
         {
             var result = await _personelService.UpdatePersonel(personelDto);
             return Ok(result);
         }
+
         [HttpDelete]
         public async Task<ActionResult> Delete(PersonelDeleteDto personelDto)
         {
             var result = await _personelService.DeletePersonel(personelDto);
             return Ok(result);
         }
+
         [HttpGet]
         [Route("get-personel-by-id")]
         public async Task<ActionResult> GetById(Guid Id)
@@ -43,6 +45,7 @@ namespace InventoryService.Api.Controllers
             var result = await _personelService.PersonelGetById(Id);
             return Ok(result);
         }
+
         [HttpGet]
         public async Task<ActionResult> GetList(bool IsDeleted, int page = 1, int pageSize = 10)
         {

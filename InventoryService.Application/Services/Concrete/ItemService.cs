@@ -11,24 +11,18 @@ namespace InventoryService.Application.Services.Concrete
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
-
         public ItemService(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-
         public async Task<ItemResponseDto> ItemCreate(ItemCreateDto itemDto)
         {
             var item = _mapper.Map<Item>(itemDto);
-
             var createdEntity = await _context.AddAsync(item);
-
             await _context.SaveChangesAsync();
-
             var itemResponse = _mapper.Map<ItemResponseDto>(createdEntity.Entity);
-
             return itemResponse;
         }
         public async Task<Item> ItemUpdate(ItemUpdateDto itemDto)
@@ -50,9 +44,7 @@ namespace InventoryService.Application.Services.Concrete
             }
 
             existingItem.IsDeleted = true;
-
             await _context.SaveChangesAsync();
-
             return existingItem;
         }
         public async Task<ItemResponseDto> GetItemById(Guid id)
@@ -78,7 +70,5 @@ namespace InventoryService.Application.Services.Concrete
                 totalRecords = totalRecords
             };
         }
-
     }
-
 }

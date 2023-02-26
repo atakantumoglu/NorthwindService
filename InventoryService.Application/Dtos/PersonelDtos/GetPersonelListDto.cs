@@ -1,8 +1,4 @@
-﻿using InventoryService.Domain.Entities;
-using InventoryService.Domain.Enums;
-
-
-namespace InventoryService.Application.Dtos.PersonelDtos
+﻿namespace InventoryService.Application.Dtos.PersonelDtos
 {
     public class GetPersonelListDto
     {

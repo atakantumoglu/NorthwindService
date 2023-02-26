@@ -11,23 +11,17 @@ namespace InventoryService.Application.Services.Concrete
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
-
         public PersonelService(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-        }       
-
+        }
         public async Task<PersonelResponseDto> CreatePersonel(PersonelCreateDto personelDto)
         {
             var personel = _mapper.Map<Personel>(personelDto);
-
             var createdEntity = await _context.AddAsync(personel);
-
             await _context.SaveChangesAsync();
-
             var personelResponse = _mapper.Map<PersonelResponseDto>(createdEntity.Entity);
-
             return personelResponse;
         }
         public async Task<List<Guid>> UpdatePersonel(List<PersonelUpdateDto> personelDto)
@@ -37,12 +31,10 @@ namespace InventoryService.Application.Services.Concrete
             foreach (var item in personelDto)
             {
                 var existingPersonel = await _context.Personels.FindAsync(item.Id);
-
                 _mapper.Map(item, existingPersonel);
                 result.Add(item.Id);
             }
             await _context.SaveChangesAsync();
-
             return result;
         }
         public async Task<Personel> DeletePersonel(PersonelDeleteDto personelDto)
@@ -55,18 +47,14 @@ namespace InventoryService.Application.Services.Concrete
             }
 
             existingPersonel.IsDeleted = true;
-
             await _context.SaveChangesAsync();
-
             return existingPersonel;
         }
         public async Task<PersonelResponseDto> PersonelGetById(Guid id)
         {
             var existingId = await _context.Personels.FirstOrDefaultAsync(x => x.IsDeleted.Equals(false) && x.Id.Equals(id));
-
             var result = _mapper.Map<PersonelResponseDto>(existingId);
-
-            return result;  
+            return result;
         }
         public async Task<GetPersonelListDto> GetPersonelList(bool IsDeleted, int page = 1, int pageSize = 10)
         {
