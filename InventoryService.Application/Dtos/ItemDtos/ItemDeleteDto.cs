@@ -1,7 +1,4 @@
-﻿using InventoryService.Domain.Enums;
-
-
-namespace InventoryService.Application.Dtos.ItemDtos
+﻿namespace InventoryService.Application.Dtos.ItemDtos
 {
     public class ItemDeleteDto
     {

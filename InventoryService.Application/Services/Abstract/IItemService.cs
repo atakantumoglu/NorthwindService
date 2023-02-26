@@ -10,7 +10,5 @@ namespace InventoryService.Application.Services.Abstract
         Task<Item> ItemDelete(ItemDeleteDto itemDto);
         Task<GetItemListDto> GetItemList(bool isDeleted, int page = 1, int pageSize = 10);
         Task<ItemResponseDto> GetItemById(Guid id);
-
-
     }
 }

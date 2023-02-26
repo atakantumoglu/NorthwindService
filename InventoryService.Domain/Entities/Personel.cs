@@ -15,6 +15,5 @@ namespace InventoryService.Domain.Entities
         public TitleEnum TitleId { get; set; }
         public string TCKN { get; set; }
         public DateTime BirthDate { get; set; }
-
     }
 }

@@ -11,7 +11,5 @@ namespace InventoryService.Domain.Entities
         public string Name { get; set; }
         public int Code { get; set; }
         public Guid ItemTypeId { get; set; }
-
-
     }
 }
