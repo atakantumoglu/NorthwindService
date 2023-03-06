@@ -28,8 +28,8 @@ var mapper = mapConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
 // Interface implementations
-builder.Services.AddScoped<IPersonelService, PersonelService>();
-builder.Services.AddScoped<IItemService, ItemService>();
+builder.Services.AddScoped<IPersonelRepository, PersonelRepository>();
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
