@@ -1,5 +1,7 @@
-﻿using InventoryService.Application.Dtos.ItemDtos;
+﻿using AutoMapper;
+using InventoryService.Application.Dtos.ItemDtos;
 using InventoryService.Application.Services.Abstract;
+using InventoryService.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryService.Api.Controllers
@@ -8,16 +10,19 @@ namespace InventoryService.Api.Controllers
     [Route("/api/[controller]")]
     public class ItemController : Controller
     {
-        private readonly IItemService _itemService;
-        public ItemController(IItemService itemService)
+        private readonly IItemRepository _itemService;
+        private readonly IMapper _mapper;
+        public ItemController(IItemRepository itemService, IMapper mapper)
         {
             _itemService = itemService;
+            _mapper = mapper;
         }
 
         [HttpPost]
         public async Task<ActionResult> CreateItem(ItemCreateDto itemDto)
         {
-            var result = await _itemService.ItemCreate(itemDto);
+            var data = _mapper.Map<Item>(itemDto);
+            var result = await _itemService.CreateAsync(data);
 
             return Ok(result);
         }
@@ -25,14 +30,15 @@ namespace InventoryService.Api.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateItem(ItemUpdateDto itemDto)
         {
-            var result = await _itemService.ItemUpdate(itemDto);
+            var data = _mapper.Map<Item>(itemDto);
+            var result = await _itemService.UpdateAsync(data);
             return Ok(result);
         }
 
         [HttpDelete]
-        public async Task<ActionResult> DeleteItem(ItemDeleteDto itemDto)
+        public async Task<ActionResult> DeleteItem(Guid id)
         {
-            var result = await _itemService.ItemDelete(itemDto);
+            var result = await _itemService.DeleteAsync(id);
             return Ok(result);
         }
 
@@ -40,14 +46,15 @@ namespace InventoryService.Api.Controllers
         [Route("get-item-by-id")]
         public async Task<ActionResult> GetByIdItem(Guid Id)
         {
-            var result = await _itemService.GetItemById(Id);
+
+            var result = await _itemService.GetByIdAsync(Id);
             return Ok(result);
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetItemList(bool IsDeleted, int page = 1, int pageSize = 10)
+        public async Task<ActionResult> GetItemList(bool IsDeleted, int page = 1, int size = 10)
         {
-            var result = await _itemService.GetItemList(IsDeleted, page, pageSize);
+            var result = await _itemService.GetAllAsync(IsDeleted, page, size);
             return Ok(result);
         }
     }
