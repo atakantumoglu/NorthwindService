@@ -21,6 +21,7 @@ namespace InventoryService.Application.Services.Data.EFCore
         public async Task<TEntity> CreateAsync(TEntity entity)
         {
             _context.Set<TEntity>().Add(entity);
+            await _context.SaveChangesAsync();
             return entity;
         }
 
@@ -28,6 +29,7 @@ namespace InventoryService.Application.Services.Data.EFCore
         {
             var entity = await _context.Set<TEntity>().FindAsync(id);
             _context.Set<TEntity>().Remove(entity);
+            await _context.SaveChangesAsync();
             return entity;
         }
 
@@ -49,6 +51,7 @@ namespace InventoryService.Application.Services.Data.EFCore
         public async Task<TEntity> UpdateAsync(TEntity entity)
         {
             _context.Set<TEntity>().Update(entity);
+            await _context.SaveChangesAsync();
             return entity;
         }
     }
