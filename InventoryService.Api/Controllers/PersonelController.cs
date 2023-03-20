@@ -13,9 +13,11 @@ namespace InventoryService.Api.Controllers
     {
         private readonly IPersonelRepository _personelService;
         private readonly IMapper _mapper;
-        public PersonelController(IPersonelRepository personelService)
+
+        public PersonelController(IPersonelRepository personelService, IMapper mapper)
         {
             _personelService = personelService;
+            _mapper = mapper;
         }
 
         [HttpPost]

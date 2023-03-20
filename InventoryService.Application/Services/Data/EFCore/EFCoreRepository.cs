@@ -7,13 +7,12 @@ using System.Security.Cryptography.X509Certificates;
 namespace InventoryService.Application.Services.Data.EFCore
 {
     //Generic Repo
-    public class EFCoreRepository<TEntity, TContext> : IRepository<TEntity>
+    public class EFCoreRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IBaseEntity
-        where TContext : DbContext
     {
-        private readonly TContext _context;
+        private readonly DbContext _context;
 
-        public EFCoreRepository(TContext context)
+        public EFCoreRepository(DbContext context)
         {
             _context = context;
         }

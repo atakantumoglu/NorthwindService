@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using InventoryService.Application.Dtos.ItemDtos;
 using InventoryService.Application.Services.Abstract;
+using InventoryService.Application.Services.Data;
 using InventoryService.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +11,9 @@ namespace InventoryService.Api.Controllers
     [Route("/api/[controller]")]
     public class ItemController : Controller
     {
-        private readonly IItemRepository _itemService;
+        private readonly IRepository<Item> _itemService;
         private readonly IMapper _mapper;
-        public ItemController(IItemRepository itemService, IMapper mapper)
+        public ItemController(IRepository<Item> itemService, IMapper mapper)
         {
             _itemService = itemService;
             _mapper = mapper;

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InventoryService.Application.Services.Concrete
 {
-    public class PersonelRepository : EFCoreRepository<Personel, DbContext>, IPersonelRepository
+    public class PersonelRepository : EFCoreRepository<Personel>, IPersonelRepository
     {
         public PersonelRepository(DbContext context) : base(context)
         {
