@@ -1,5 +1,4 @@
-﻿using InventoryService.Application.Dtos.ItemDtos;
-using InventoryService.Application.Services.Data;
+﻿using InventoryService.Application.Services.Data;
 using InventoryService.Domain.Entities;
 
 namespace InventoryService.Application.Services.Abstract

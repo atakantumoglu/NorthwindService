@@ -9,6 +9,5 @@ namespace InventoryService.Domain.Entities
         public Guid LastModifierId { get; set; }
         public DateTime LastModificationTime { get; set; }
         public bool IsDeleted { get; set; }
-
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InventoryService.Application.Services.Concrete
 {
-    public class ItemRepository : EFCoreRepository<Item, DbContext>, IItemRepository
+    public class ItemRepository : EFCoreRepository<Item>, IItemRepository
     {
         public ItemRepository(DbContext context) : base(context)
         {
