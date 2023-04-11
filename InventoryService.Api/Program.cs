@@ -1,9 +1,7 @@
 using AutoMapper;
 using InventoryService.Application.Mapper.ItemMapper;
 using InventoryService.Application.Mapper.PersonelMapper;
-using InventoryService.Application.Services.Abstract;
-using InventoryService.Application.Services.Concrete;
-using InventoryService.Application.Services.Data;
+using InventoryService.Application.Services.Data.Abstract;
 using InventoryService.Application.Services.Data.EFCore;
 using InventoryService.Domain.Entities;
 using InventoryService.Infrastructure.ContextDb;
@@ -31,12 +29,15 @@ var mapper = mapConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
 // Interface implementations
-builder.Services.AddScoped(typeof(IRepository<>), typeof(EFCoreRepository<>));
+//builder.Services.AddScoped(typeof(IRepository<>), typeof(EFCoreRepository<>));
 
-builder.Services.AddScoped<IPersonelRepository, PersonelRepository>();
-builder.Services.AddScoped<IItemRepository, ItemRepository>();
-
-builder.Services.AddControllers();
+builder.Services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
+builder.Services.AddHttpContextAccessor();
+//builder.Services.AddScoped<IPersonelRepository, PersonelRepository>();
+//builder.Services.AddScoped<IItemRepository, ItemRepository>();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 
 // Register the Swagger generator and the Swagger UI middlewares
 builder.Services.AddSwaggerGen(c =>
