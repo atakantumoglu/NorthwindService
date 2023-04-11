@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using InventoryService.Application.Dtos.PersonelDtos;
 using InventoryService.Application.Services.Abstract;
+using InventoryService.Application.Services.Data;
 using InventoryService.Domain.Entities;
 using InventoryService.Infrastructure.ContextDb;
 using Microsoft.AspNetCore.Mvc;
@@ -24,38 +25,47 @@ namespace InventoryService.Api.Controllers
         public async Task<ActionResult> Create(PersonelCreateDto personelDto)
         {
             var data = _mapper.Map<Personel>(personelDto);
-            var result = await _personelService.CreateAsync(data);
-            return Ok(result);
+            //var result = await _personelService.CreateAsync(data);
+            //return Ok(result);
+            return Ok();
         }
 
         [HttpPut]
         public async Task<ActionResult> Update(List<PersonelUpdateDto> personelDto)
         {
             var data = _mapper.Map<Personel>(personelDto);
-            var result = await _personelService.UpdateAsync(data);
-            return Ok(result);
+            //var result = await _personelService.UpdateAsync(data);
+            //return Ok(result);
+            return Ok();
+
         }
 
         [HttpDelete]
         public async Task<ActionResult> Delete(Guid id)
-        {           
-            var result = await _personelService.DeleteAsync(id);
-            return Ok(result);
+        {
+            //var result = await _personelService.DeleteAsync(id);
+            //return Ok(result);
+            return Ok();
+
         }
 
         [HttpGet]
         [Route("get-personel-by-id")]
         public async Task<ActionResult> GetById(Guid Id)
         {
-            var result = await _personelService.GetByIdAsync(Id);
-            return Ok(result);
+            //var result = await _personelService.GetByIdAsync(Id);
+            //return Ok(result);
+            return Ok();
+
         }
 
         [HttpGet]
         public async Task<ActionResult> GetList(bool IsDeleted, int page = 1, int pageSize = 10)
         {
-            var result = await _personelService.GetAllAsync(IsDeleted, page, pageSize);
-            return Ok(result);
-        }    
+            //var result = await _personelService.GetAllAsync(IsDeleted, page, pageSize);
+            //return Ok(result);
+            return Ok();
+
+        }
     }
 }
