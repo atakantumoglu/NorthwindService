@@ -1,4 +1,5 @@
 ﻿using InventoryService.Domain;
+using InventoryService.Infrastructure.ContextDb;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
@@ -10,15 +11,16 @@ namespace InventoryService.Application.Services.Data.EFCore
     public class EFCoreRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IBaseEntity
     {
-        private readonly DbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public EFCoreRepository(DbContext context)
+        public EFCoreRepository(ApplicationDbContext context) 
         {
             _context = context;
         }
 
         public async Task<TEntity> CreateAsync(TEntity entity)
         {
+
             _context.Set<TEntity>().Add(entity);
             await _context.SaveChangesAsync();
             return entity;

@@ -10,9 +10,8 @@ namespace InventoryService.Application.Services.Concrete
 {
     public class PersonelRepository : EFCoreRepository<Personel>, IPersonelRepository
     {
-        public PersonelRepository(DbContext context) : base(context)
+        public PersonelRepository(ApplicationDbContext context) : base(context)
         {
         }
-        
     }
 }

@@ -11,9 +11,9 @@ namespace InventoryService.Api.Controllers
     [Route("/api/[controller]")]
     public class ItemController : Controller
     {
-        private readonly IRepository<Item> _itemService;
+        private readonly IItemRepository _itemService;
         private readonly IMapper _mapper;
-        public ItemController(IRepository<Item> itemService, IMapper mapper)
+        public ItemController(IItemRepository itemService, IMapper mapper)
         {
             _itemService = itemService;
             _mapper = mapper;
