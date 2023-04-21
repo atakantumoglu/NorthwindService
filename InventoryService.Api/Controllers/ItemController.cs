@@ -44,7 +44,7 @@ namespace InventoryService.Api.Controllers
         [HttpDelete]
         public async Task<ActionResult> DeleteItem(Guid id)
         {
-            //var result = await _itemService.DeleteAsync(id);
+            ////var result = await _itemService.DeleteAsync(id);
             //return Ok(result);
             return Ok();
 
