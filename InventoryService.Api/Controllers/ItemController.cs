@@ -36,7 +36,7 @@ namespace InventoryService.Api.Controllers
         public async Task<ActionResult> UpdateItem(ItemUpdateDto itemDto)
         {
             var data = _mapper.Map<Item>(itemDto);
-            var result = await _context.GetRepositoryAsync<Item>().SingleOrDefaultAsync();
+            //var result = await _context.<Item>().(data);
             //return Ok(result);
             return Ok();
         }
