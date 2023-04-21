@@ -36,7 +36,7 @@ namespace InventoryService.Api.Controllers
         public async Task<ActionResult> UpdateItem(ItemUpdateDto itemDto)
         {
             var data = _mapper.Map<Item>(itemDto);
-            ////var result = await _itemService.UpdateAsync(data);
+            //var result = await _context.<Item>().(data);
             //return Ok(result);
             return Ok();
         }
@@ -44,7 +44,7 @@ namespace InventoryService.Api.Controllers
         [HttpDelete]
         public async Task<ActionResult> DeleteItem(Guid id)
         {
-            //var result = await _itemService.DeleteAsync(id);
+            ////var result = await _itemService.DeleteAsync(id);
             //return Ok(result);
             return Ok();
 

@@ -15,6 +15,7 @@ namespace InventoryService.Infrastructure.ContextDb
         public DbSet<Personel> Personels { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<ItemType> ItemTypes { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 
 }
