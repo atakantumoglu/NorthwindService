@@ -1,27 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InventoryService.Application.Services.Data.Concrete.Paging
+﻿namespace InventoryService.Application.Services.Data.Concrete.Paging
 {
     internal class Paginate<TSource, TResult> : IPaginate<TResult>
     {
         public int PageNumber { get; }
-
         public int Size { get; }
-
         public int Count { get; }
-
         public int Pages { get; }
-
         public int From { get; }
-
         public IList<TResult> Items { get; }
-
         public bool HasPrevious => PageNumber - From > 0;
-
         public bool HasNext => PageNumber - From + 1 < Pages;
 
         public Paginate(IEnumerable<TSource> source, Func<IEnumerable<TSource>, IEnumerable<TResult>> converter, int pageNumber, int size, int from)

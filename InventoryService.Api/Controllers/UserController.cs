@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using InventoryService.Application.Dtos.UserDtos;
-using InventoryService.Application.Services.Abstract;
+using InventoryService.Application.Services.Data.Abstract;
+using InventoryService.Infrastructure.ContextDb;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
 
 namespace InventoryService.Api.Controllers
 {
@@ -10,12 +10,12 @@ namespace InventoryService.Api.Controllers
     [Route("api/[controller]")]
     public class UserController : Controller
     {
-        private readonly IPersonelRepository _personelRepository;
+        private readonly IUnitOfWork<ApplicationDbContext> _unitOfWork;
         private readonly IMapper _mapper;
 
-        public UserController(IPersonelRepository personelRepository, IMapper mapper)
+        public UserController(IUnitOfWork<ApplicationDbContext> unitOfWork, IMapper mapper)
         {
-            _personelRepository = personelRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 

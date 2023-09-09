@@ -1,15 +1,10 @@
-﻿using InventoryService.Application.Services.Data.Abstract;
+﻿using HadesGeneric.Data.Helper;
+using InventoryService.Application.Services.Data.Abstract;
 using InventoryService.Domain.Entities;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using HadesGeneric.Data.Helper;
 
 namespace InventoryService.Application.Services.Data.Concrete
 {
@@ -72,7 +67,7 @@ namespace InventoryService.Application.Services.Data.Concrete
             DbSet.AddRange(entities);
         }
 
-        public T InsertNotExists(Expression<Func<T, bool>> predicate, T entity)
+        public T InsertIfNotExists(Expression<Func<T, bool>> predicate, T entity)
         {
             entity.CreatorId = _httpContextAccessor.HttpContext!.User.Id();
             if (DbSet.Any(predicate))
