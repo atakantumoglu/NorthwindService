@@ -1,14 +1,9 @@
-﻿using InventoryService.Domain.Entities;
-using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using InventoryService.Application.Services.Data.Abstract;
+﻿using InventoryService.Application.Services.Data.Abstract;
 using InventoryService.Application.Services.Data.Concrete.Paging;
+using InventoryService.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
+using System.Linq.Expressions;
 
 namespace InventoryService.Application.Services.Data.Concrete
 {

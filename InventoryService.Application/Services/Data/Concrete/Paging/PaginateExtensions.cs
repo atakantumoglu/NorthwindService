@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InventoryService.Application.Services.Data.Concrete.Paging
+﻿namespace InventoryService.Application.Services.Data.Concrete.Paging
 {
     public static class PaginateExtensions
     {
@@ -12,7 +6,5 @@ namespace InventoryService.Application.Services.Data.Concrete.Paging
         {
             return new Paginate<T>(source, pageNumber, size, from);
         }
-
-
     }
 }
