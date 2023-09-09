@@ -3,19 +3,32 @@ using InventoryService.Application.Mapper.ItemMapper;
 using InventoryService.Application.Mapper.PersonelMapper;
 using InventoryService.Application.Services.Data.Abstract;
 using InventoryService.Application.Services.Data.EFCore;
-using InventoryService.Domain.Entities;
 using InventoryService.Infrastructure.ContextDb;
+using InventoryService.Infrastructure.Options;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 // Add services to the container.
-var d =builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer("Server=KARGA;Initial Catalog=InventoryServiceDb; Integrated Security=true;TrustServerCertificate=true;",
-       m => m.MigrationsAssembly("InventoryService.Api")));
+builder.Services.ConfigureOptions<DatabaseOptionsSetup>();
+builder.Services.AddDbContext<ApplicationDbContext>(
+    (serviceProvider, dbContextOptionsBuilder) =>
+    {
+        var databaseOptions = serviceProvider.GetService<IOptions<DatabaseOptions>>()!.Value;
+        dbContextOptionsBuilder.UseSqlServer(databaseOptions.ConnectionString, sqlServerAction =>
+        {
+            sqlServerAction.CommandTimeout(databaseOptions.CommandTimeout);
+            sqlServerAction.EnableRetryOnFailure(databaseOptions.MaxRetryCount);
+        });
+
+        dbContextOptionsBuilder.EnableDetailedErrors(databaseOptions.EnableDetailedErrors);
+        dbContextOptionsBuilder.EnableSensitiveDataLogging(databaseOptions.EnableSensitiveDataLogging);
+    });
 
 // Mapper Configurations
 var assembly = Assembly.GetExecutingAssembly();
