@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryService.Infrastruc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{97D27D48-9859-4649-9763-0C55D143207A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryService.Application", "InventoryService.Application\InventoryService.Application.csproj", "{F3D2EFFE-76DA-44C0-9088-14882DFCD50F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryService.Application", "InventoryService.Application\InventoryService.Application.csproj", "{F3D2EFFE-76DA-44C0-9088-14882DFCD50F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

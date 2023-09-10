@@ -17,7 +17,11 @@ namespace InventoryService.Infrastructure.Options
         {
             var connectionString = _configuration.GetConnectionString("Database");
 
+            var migrationsAssembly = _configuration.GetSection("DatabaseOptions:MigrationsAssembly").Value;
+
             options.ConnectionString = connectionString;
+
+            options.MigrationAssembly = migrationsAssembly;
 
             _configuration.GetSection(ConfigurationSectionName).Bind(options);
         }
