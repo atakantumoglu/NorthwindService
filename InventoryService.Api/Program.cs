@@ -3,7 +3,7 @@ using InventoryService.Application.Mapper.ItemMapper;
 using InventoryService.Application.Mapper.PersonelMapper;
 using InventoryService.Application.Services.Data.Abstract;
 using InventoryService.Application.Services.Data.EFCore;
-using InventoryService.Infrastructure.ContextDb;
+using InventoryService.Infrastructure.Data.Context;
 using InventoryService.Infrastructure.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -22,6 +22,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(
         var databaseOptions = serviceProvider.GetService<IOptions<DatabaseOptions>>()!.Value;
         dbContextOptionsBuilder.UseSqlServer(databaseOptions.ConnectionString, sqlServerAction =>
         {
+            sqlServerAction.MigrationsAssembly(databaseOptions.MigrationAssembly);
             sqlServerAction.CommandTimeout(databaseOptions.CommandTimeout);
             sqlServerAction.EnableRetryOnFailure(databaseOptions.MaxRetryCount);
         });
