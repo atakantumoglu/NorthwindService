@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace InventoryService.Domain.Entities;
 
-public partial class SalesTotalsByAmount : BaseEntity
+public class SalesTotalsByAmount : BaseEntity
 {
     public decimal? SaleAmount { get; set; }
 

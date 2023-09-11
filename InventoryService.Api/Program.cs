@@ -1,6 +1,4 @@
 using AutoMapper;
-using InventoryService.Application.Mapper.ItemMapper;
-using InventoryService.Application.Mapper.PersonelMapper;
 using InventoryService.Application.Services.Data.Abstract;
 using InventoryService.Application.Services.Data.EFCore;
 using InventoryService.Infrastructure.Data.Context;
@@ -16,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.ConfigureOptions<DatabaseOptionsSetup>();
+builder.Services.AddCors();
 builder.Services.AddDbContext<ApplicationDbContext>(
     (serviceProvider, dbContextOptionsBuilder) =>
     {
@@ -34,13 +33,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 // Mapper Configurations
 var assembly = Assembly.GetExecutingAssembly();
 builder.Services.AddAutoMapper(assembly);
-var mapConfig = new MapperConfiguration(x =>
-{
-    x.AddProfile<ItemMapperProfile>();
-    x.AddProfile<PersonelMapperProfile>();
-});
-var mapper = mapConfig.CreateMapper();
-builder.Services.AddSingleton(mapper);
+//var mapConfig = new MapperConfiguration(x =>
+//{
+//    x.AddProfile<ItemMapperProfile>();
+//    x.AddProfile<PersonelMapperProfile>();
+//});
+//var mapper = mapConfig.CreateMapper();
+//builder.Services.AddSingleton(mapper);
 
 // Interface implementations
 //builder.Services.AddScoped(typeof(IRepository<>), typeof(EFCoreRepository<>));
@@ -69,6 +68,11 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
+    app.UseCors(builder => builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {

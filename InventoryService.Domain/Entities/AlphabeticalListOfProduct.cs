@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace InventoryService.Domain.Entities;
 
-public partial class AlphabeticalListOfProduct : BaseEntity
+public class AlphabeticalListOfProduct : BaseEntity
 {
     public string ProductName { get; set; } = null!;
     public int ProductId { get; set; }

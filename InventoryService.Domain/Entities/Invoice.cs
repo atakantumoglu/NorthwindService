@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace InventoryService.Domain.Entities;
 
-public partial class Invoice : BaseEntity
+public class Invoice : BaseEntity
 {
     public string? ShipName { get; set; }
 

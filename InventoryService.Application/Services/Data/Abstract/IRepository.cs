@@ -13,13 +13,9 @@ namespace InventoryService.Application.Services.Data.Abstract
             bool ignoreQueryFilters = false);
 
         T Insert(T entity);
-
         void Insert(IEnumerable<T> entities);
-
         T InsertIfNotExists(Expression<Func<T, bool>> predicate, T entity);
-
         void Update(T entity);
-
         void Update(IEnumerable<T> entities);
     }
 }

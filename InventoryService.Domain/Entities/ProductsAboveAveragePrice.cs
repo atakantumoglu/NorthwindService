@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace InventoryService.Domain.Entities;
 
-public partial class ProductsAboveAveragePrice : BaseEntity
+public class ProductsAboveAveragePrice : BaseEntity
 {
     public string ProductName { get; set; } = null!;
 

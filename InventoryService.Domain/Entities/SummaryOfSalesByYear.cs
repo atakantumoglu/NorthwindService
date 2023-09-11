@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace InventoryService.Domain.Entities;
 
-public partial class SummaryOfSalesByYear : BaseEntity
+public class SummaryOfSalesByYear : BaseEntity
 {
     public DateTime? ShippedDate { get; set; }
 

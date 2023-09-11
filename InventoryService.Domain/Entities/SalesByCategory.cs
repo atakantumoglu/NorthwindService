@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace InventoryService.Domain.Entities;
 
-public partial class SalesByCategory : BaseEntity
+public class SalesByCategory : BaseEntity
 {
     public int CategoryId { get; set; }
 
