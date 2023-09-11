@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace InventoryService.Domain.Entities;
 
-public partial class Region : BaseEntity
+public class Region : BaseEntity
 {
     public int RegionId { get; set; }
 

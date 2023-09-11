@@ -22,7 +22,6 @@ namespace InventoryService.Application.Services.Data.Abstract
             CancellationToken cancellationToken = default);
 
         ValueTask<EntityEntry<T>> InsertAsync(T entity, CancellationToken cancellationToken = default);
-
         Task InsertAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
     }
 

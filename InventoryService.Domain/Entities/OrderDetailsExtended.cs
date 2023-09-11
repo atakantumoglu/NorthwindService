@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace InventoryService.Domain.Entities;
 
-public partial class OrderDetailsExtended : BaseEntity
+public class OrderDetailsExtended : BaseEntity
 {
     public int OrderId { get; set; }
 

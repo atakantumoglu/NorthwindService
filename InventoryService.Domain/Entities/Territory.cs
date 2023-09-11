@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace InventoryService.Domain.Entities;
 
-public partial class Territory : BaseEntity
+public class Territory : BaseEntity
 {
     public string TerritoryId { get; set; } = null!;
 

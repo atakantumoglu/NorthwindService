@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace InventoryService.Domain.Entities;
 
-public partial class Customer : BaseEntity
+public class Customer : BaseEntity
 {
     public string CustomerId { get; set; } = null!;
     public string CompanyName { get; set; } = null!;

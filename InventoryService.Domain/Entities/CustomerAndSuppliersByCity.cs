@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace InventoryService.Domain.Entities;
 
-public partial class CustomerAndSuppliersByCity : BaseEntity
+public class CustomerAndSuppliersByCity : BaseEntity
 {
     public string? City { get; set; }
 
