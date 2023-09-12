@@ -1,17 +1,12 @@
 using InventoryService.Api.Extensions;
 using InventoryService.Application;
-using InventoryService.Application.Cqrs.Queries.CustomerQueries;
 using InventoryService.Application.Services.Data.Abstract;
 using InventoryService.Application.Services.Data.EFCore;
 using InventoryService.Infrastructure.Data.Context;
 using InventoryService.Infrastructure.Options;
-using MediatR;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Protocols;
 using Microsoft.OpenApi.Models;
-using System.Configuration;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
