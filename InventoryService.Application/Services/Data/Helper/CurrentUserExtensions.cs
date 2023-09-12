@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace HadesGeneric.Data.Helper
+namespace InventoryService.Application.Services.Data.Helper
 {
     public static class CurrentUserExtension
     {
