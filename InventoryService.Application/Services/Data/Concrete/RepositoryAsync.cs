@@ -1,17 +1,12 @@
-﻿using InventoryService.Application.Services.Data.Abstract;
+﻿using HadesGeneric.Data.Helper;
+using InventoryService.Application.Services.Data.Abstract;
+using InventoryService.Application.Services.Data.Concrete.Paging;
 using InventoryService.Domain.Entities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using InventoryService.Application.Services.Data.Concrete.Paging;
-using HadesGeneric.Data.Helper;
 
 namespace InventoryService.Application.Services.Data.Concrete
 {
