@@ -32,8 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\InventoryService.Application\InventoryService.Application.csproj" />
-    <ProjectReference Include="..\InventoryService.Infrastructure\InventoryService.Infrastructure.csproj" />
+    <ProjectReference Include="..\InventoryService.Application\NorthwindService.Application.csproj" />
+    <ProjectReference Include="..\InventoryService.Infrastructure\NorthwindService.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

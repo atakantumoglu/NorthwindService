@@ -1,4 +1,4 @@
-﻿namespace InventoryService.Application.Services.Data.Concrete.Paging
+﻿namespace NorthwindService.Application.Services.Data.Concrete.Paging
 {
     public static class PaginateExtensions
     {

@@ -1,7 +1,7 @@
-﻿using InventoryService.Application.ResponseObjects;
+﻿using NorthwindService.Application.ResponseObjects;
 using MediatR;
 
-namespace InventoryService.Application.Cqrs.Queries.CustomerQueries
+namespace NorthwindService.Application.Cqrs.Queries.CustomerQueries
 {
     public class CustomerGetByIdQuery : IRequest<ApiResponse>
     {

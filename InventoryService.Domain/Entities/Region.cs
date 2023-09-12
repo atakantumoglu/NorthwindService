@@ -1,4 +1,4 @@
-﻿namespace InventoryService.Domain.Entities;
+﻿namespace NorthwindService.Domain.Entities;
 
 public class Region : BaseEntity
 {

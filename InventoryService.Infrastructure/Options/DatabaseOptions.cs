@@ -1,4 +1,4 @@
-﻿namespace InventoryService.Infrastructure.Options
+﻿namespace NorthwindService.Infrastructure.Options
 {
     public class DatabaseOptions
     {

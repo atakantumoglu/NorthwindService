@@ -1,4 +1,4 @@
-﻿namespace InventoryService.Application.Services.Data.Concrete.Paging
+﻿namespace NorthwindService.Application.Services.Data.Concrete.Paging
 {
     internal class Paginate<TSource, TResult> : IPaginate<TResult>
     {

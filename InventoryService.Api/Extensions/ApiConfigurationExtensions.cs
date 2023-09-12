@@ -1,6 +1,6 @@
-﻿using InventoryService.Api.Middlewares;
+﻿using NorthwindService.Api.Middlewares;
 
-namespace InventoryService.Api.Extensions
+namespace NorthwindService.Api.Extensions
 {
     public static class ApiConfigurationExtensions
     {
@@ -22,7 +22,7 @@ namespace InventoryService.Api.Extensions
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "InventoryService.Api v1");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "NorthwindService.Api v1");
                 });
             }
 

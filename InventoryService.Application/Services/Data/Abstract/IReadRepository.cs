@@ -1,8 +1,8 @@
-﻿using InventoryService.Domain.Entities;
+﻿using NorthwindService.Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
-namespace InventoryService.Application.Services.Data.Abstract
+namespace NorthwindService.Application.Services.Data.Abstract
 {
     public interface IReadRepository<T> where T : BaseEntity
     {

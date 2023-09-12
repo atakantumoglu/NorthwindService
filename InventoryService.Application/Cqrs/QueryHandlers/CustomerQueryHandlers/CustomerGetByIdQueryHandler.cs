@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using InventoryService.Application.Cqrs.Queries.CustomerQueries;
-using InventoryService.Application.Dtos.CustomerDtos;
-using InventoryService.Application.ResponseObjects;
-using InventoryService.Application.Services.Data.Abstract;
-using InventoryService.Domain.Entities;
-using InventoryService.Infrastructure.Data.Context;
+using NorthwindService.Application.Cqrs.Queries.CustomerQueries;
+using NorthwindService.Application.Dtos.CustomerDtos;
+using NorthwindService.Application.ResponseObjects;
+using NorthwindService.Application.Services.Data.Abstract;
+using NorthwindService.Domain.Entities;
+using NorthwindService.Infrastructure.Data.Context;
 
 using MediatR;
 
-namespace InventoryService.Application.Cqrs.QueryHandlers.CustomerQueryHandlers
+namespace NorthwindService.Application.Cqrs.QueryHandlers.CustomerQueryHandlers
 {
     public class CustomerGetByIdQueryHandler : IRequestHandler<CustomerGetByIdQuery, ApiResponse>
     {

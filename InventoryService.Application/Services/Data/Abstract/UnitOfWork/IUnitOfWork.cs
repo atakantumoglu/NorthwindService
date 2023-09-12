@@ -1,7 +1,7 @@
-﻿using InventoryService.Application.Services.Data.Abstract.UnitOfWork;
+﻿using NorthwindService.Application.Services.Data.Abstract.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
-namespace InventoryService.Application.Services.Data.Abstract
+namespace NorthwindService.Application.Services.Data.Abstract
 {
     public interface IUnitOfWork<TContext> : IUnitOfWork, IDisposable where TContext : DbContext
     {

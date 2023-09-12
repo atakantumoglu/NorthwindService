@@ -1,6 +1,6 @@
-﻿using InventoryService.Domain.Entities;
+﻿using NorthwindService.Domain.Entities;
 
-namespace InventoryService.Application.Services.Data.Abstract.UnitOfWork
+namespace NorthwindService.Application.Services.Data.Abstract.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {

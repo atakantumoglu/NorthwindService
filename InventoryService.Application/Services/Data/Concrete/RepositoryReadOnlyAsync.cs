@@ -1,11 +1,11 @@
-﻿using InventoryService.Application.Services.Data.Abstract;
-using InventoryService.Domain.Entities;
+﻿using NorthwindService.Application.Services.Data.Abstract;
+using NorthwindService.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
-namespace InventoryService.Application.Services.Data.Concrete
+namespace NorthwindService.Application.Services.Data.Concrete
 {
     public class RepositoryReadOnlyAsync<T> : RepositoryAsync<T>, IRepositoryReadOnlyAsync<T> where T : BaseEntity
     {
