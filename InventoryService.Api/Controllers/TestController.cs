@@ -1,6 +1,7 @@
-﻿using InventoryService.Application.Services.Data.Abstract;
-using InventoryService.Domain.Entities;
+﻿using InventoryService.Application.Cqrs.Queries.CustomerQueries;
+using InventoryService.Application.Services.Data.Abstract;
 using InventoryService.Infrastructure.Data.Context;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryService.Api.Controllers
@@ -10,18 +11,23 @@ namespace InventoryService.Api.Controllers
     public class TestController : Controller
     {
         private readonly IUnitOfWork<ApplicationDbContext> _unitOfWork;
-
-        public TestController(IUnitOfWork<ApplicationDbContext> unitOfWork)
+        private readonly IMediator _mediator;
+        public TestController(IUnitOfWork<ApplicationDbContext> unitOfWork, IMediator mediator)
         {
             _unitOfWork = unitOfWork;
+            _mediator = mediator;
         }
 
         [HttpGet]
+        [Route("get-by-id")]
         public async Task<ActionResult> GetById(Guid customerId)
         {
-            var data = _unitOfWork.GetReadOnlyRepository<Customer>().SingleOrDefault(c => c.Id == customerId);
+            var query = new CustomerGetByIdQuery(customerId);
 
-            return Ok(data);
+            var response = await _mediator.Send(query);
+
+
+            return Ok(response);
         }
     }
 }
