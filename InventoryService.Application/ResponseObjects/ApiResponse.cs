@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace InventoryService.Application.ResponseObjects
+namespace NorthwindService.Application.ResponseObjects
 {
     public class ApiResponse
     {

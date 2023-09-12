@@ -1,4 +1,4 @@
-﻿namespace InventoryService.Application.Dtos.CustomerDtos
+﻿namespace NorthwindService.Application.Dtos.CustomerDtos
 {
     public class CustomerGetByIdDto
     {

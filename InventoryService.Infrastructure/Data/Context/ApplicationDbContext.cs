@@ -1,8 +1,8 @@
-﻿using InventoryService.Domain.Entities;
-using InventoryService.Infrastructure.Data.EntityConfigurations;
+﻿using NorthwindService.Domain.Entities;
+using NorthwindService.Infrastructure.Data.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 
-namespace InventoryService.Infrastructure.Data.Context
+namespace NorthwindService.Infrastructure.Data.Context
 {
     public class ApplicationDbContext : DbContext 
     {

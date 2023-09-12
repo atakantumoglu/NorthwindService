@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using InventoryService.Application.Mappers.CustomerMappers;
+using NorthwindService.Application.Mappers.CustomerMappers;
 
-namespace InventoryService.Api.Extensions
+namespace NorthwindService.Api.Extensions
 {
     public static class MapperExtension
     {

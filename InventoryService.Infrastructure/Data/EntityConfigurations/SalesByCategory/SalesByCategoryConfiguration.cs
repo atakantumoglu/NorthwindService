@@ -1,8 +1,8 @@
-﻿using InventoryService.Domain.Entities;
+﻿using NorthwindService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace InventoryService.Infrastructure.Data.EntityConfigurations
+namespace NorthwindService.Infrastructure.Data.EntityConfigurations
 {
     public class SalesByCategoryConfiguration : IEntityTypeConfiguration<SalesByCategory>
     {

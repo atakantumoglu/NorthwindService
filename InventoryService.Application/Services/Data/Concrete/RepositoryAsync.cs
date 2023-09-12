@@ -1,14 +1,14 @@
-﻿using HadesGeneric.Data.Helper;
-using InventoryService.Application.Services.Data.Abstract;
-using InventoryService.Application.Services.Data.Concrete.Paging;
-using InventoryService.Domain.Entities;
+﻿using NorthwindService.Application.Services.Data.Helper;
+using NorthwindService.Application.Services.Data.Abstract;
+using NorthwindService.Application.Services.Data.Concrete.Paging;
+using NorthwindService.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
-namespace InventoryService.Application.Services.Data.Concrete
+namespace NorthwindService.Application.Services.Data.Concrete
 {
     public class RepositoryAsync<T> : IRepositoryAsync<T> where T : BaseEntity
     {

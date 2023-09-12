@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace InventoryService.Application.Services.Data.Helper
+namespace NorthwindService.Application.Services.Data.Helper
 {
     public static class CurrentUserExtension
     {

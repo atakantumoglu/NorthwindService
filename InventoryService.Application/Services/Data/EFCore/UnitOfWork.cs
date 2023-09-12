@@ -1,12 +1,12 @@
-﻿using InventoryService.Application.Services.Data.Abstract;
-using InventoryService.Application.Services.Data.Abstract.Factory;
-using InventoryService.Application.Services.Data.Abstract.UnitOfWork;
-using InventoryService.Application.Services.Data.Concrete;
-using InventoryService.Domain.Entities;
+﻿using NorthwindService.Application.Services.Data.Abstract;
+using NorthwindService.Application.Services.Data.Abstract.Factory;
+using NorthwindService.Application.Services.Data.Abstract.UnitOfWork;
+using NorthwindService.Application.Services.Data.Concrete;
+using NorthwindService.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
-namespace InventoryService.Application.Services.Data.EFCore
+namespace NorthwindService.Application.Services.Data.EFCore
 {
     public class UnitOfWork<TContext> : IRepositoryFactory, IUnitOfWork<TContext>, IUnitOfWork, IDisposable where TContext : DbContext, IDisposable
     {

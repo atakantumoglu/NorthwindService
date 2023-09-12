@@ -1,6 +1,6 @@
-﻿using InventoryService.Domain.Entities;
+﻿using NorthwindService.Domain.Entities;
 
-namespace InventoryService.Application.Services.Data.Abstract
+namespace NorthwindService.Application.Services.Data.Abstract
 {
     public interface IDeleteRepository<T> where T : BaseEntity
     {

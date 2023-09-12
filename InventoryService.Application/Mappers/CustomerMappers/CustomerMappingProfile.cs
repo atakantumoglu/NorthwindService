@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using InventoryService.Application.Dtos.CustomerDtos;
-using InventoryService.Domain.Entities;
+using NorthwindService.Application.Dtos.CustomerDtos;
+using NorthwindService.Domain.Entities;
 
-namespace InventoryService.Application.Mappers.CustomerMappers
+namespace NorthwindService.Application.Mappers.CustomerMappers
 {
     public class CustomerMappingProfile : Profile
     {
