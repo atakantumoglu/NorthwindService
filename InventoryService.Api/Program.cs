@@ -1,18 +1,23 @@
-using AutoMapper;
+using InventoryService.Api.Extensions;
+using InventoryService.Application;
+using InventoryService.Application.Cqrs.Queries.CustomerQueries;
 using InventoryService.Application.Services.Data.Abstract;
 using InventoryService.Application.Services.Data.EFCore;
 using InventoryService.Infrastructure.Data.Context;
 using InventoryService.Infrastructure.Options;
+using MediatR;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Protocols;
 using Microsoft.OpenApi.Models;
+using System.Configuration;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 // Add services to the container.
+
 builder.Services.ConfigureOptions<DatabaseOptionsSetup>();
 builder.Services.AddCors();
 builder.Services.AddDbContext<ApplicationDbContext>(
@@ -32,25 +37,26 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 
 // Mapper Configurations
 var assembly = Assembly.GetExecutingAssembly();
+
 builder.Services.AddAutoMapper(assembly);
 //var mapConfig = new MapperConfiguration(x =>
 //{
 //    x.AddProfile<ItemMapperProfile>();
-//    x.AddProfile<PersonelMapperProfile>();
+//    x.AddProfile<PersonelMapperProfile>();    
 //});
 //var mapper = mapConfig.CreateMapper();
 //builder.Services.AddSingleton(mapper);
 
 // Interface implementations
-//builder.Services.AddScoped(typeof(IRepository<>), typeof(EFCoreRepository<>));
-
 builder.Services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
+
+
 builder.Services.AddHttpContextAccessor();
-//builder.Services.AddScoped<IPersonelRepository, PersonelRepository>();
-//builder.Services.AddScoped<IItemRepository, ItemRepository>();
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
+builder.Services.AddApiConfiguration();
+builder.Services.RegisterServices();
 
 // Register the Swagger generator and the Swagger UI middlewares
 builder.Services.AddSwaggerGen(c =>
@@ -58,33 +64,12 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "InventoryService.Api", Version = "v1" });
 });
 
-
 var app = builder.Build();
-//using (var scope = app.Services.CreateScope())
-//{
-//    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-//    dbContext.Database.Migrate();
-//}
+
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-    app.UseCors(builder => builder
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader());
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "InventoryService.Api v1");
-    });
+app.UseApiConfigurations();
 
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
 
 app.Run();
+
+
