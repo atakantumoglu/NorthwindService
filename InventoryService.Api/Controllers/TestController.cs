@@ -29,5 +29,15 @@ namespace InventoryService.Api.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet]
+        public async Task<ActionResult> GetList()
+        {
+            var query = new CustomerGetListQuery();
+
+            var response = await _mediator.Send(query);
+
+            return Ok(response);
+        }
     }
 }

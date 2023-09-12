@@ -38,14 +38,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 // Mapper Configurations
 var assembly = Assembly.GetExecutingAssembly();
 
-builder.Services.AddAutoMapper(assembly);
-//var mapConfig = new MapperConfiguration(x =>
-//{
-//    x.AddProfile<ItemMapperProfile>();
-//    x.AddProfile<PersonelMapperProfile>();    
-//});
-//var mapper = mapConfig.CreateMapper();
-//builder.Services.AddSingleton(mapper);
+builder.Services.AddApplication();
+
 
 // Interface implementations
 builder.Services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
