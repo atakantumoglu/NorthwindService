@@ -1,10 +1,10 @@
-﻿using InventoryService.Application.Cqrs.Queries.CustomerQueries;
-using InventoryService.Application.Services.Data.Abstract;
-using InventoryService.Infrastructure.Data.Context;
+﻿using NorthwindService.Application.Cqrs.Queries.CustomerQueries;
+using NorthwindService.Application.Services.Data.Abstract;
+using NorthwindService.Infrastructure.Data.Context;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace InventoryService.Api.Controllers
+namespace NorthwindService.Api.Controllers
 {
     [ApiController]
     [Route("test-controller")]

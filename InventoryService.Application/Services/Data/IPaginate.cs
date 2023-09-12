@@ -1,4 +1,4 @@
-﻿namespace InventoryService.Application.Services.Data
+﻿namespace NorthwindService.Application.Services.Data
 {
     public interface IPaginate<T>
     {

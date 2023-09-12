@@ -1,11 +1,11 @@
-﻿using InventoryService.Application.Services.Data.Abstract;
-using InventoryService.Application.Services.Data.Concrete.Paging;
-using InventoryService.Domain.Entities;
+﻿using NorthwindService.Application.Services.Data.Abstract;
+using NorthwindService.Application.Services.Data.Concrete.Paging;
+using NorthwindService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
-namespace InventoryService.Application.Services.Data.Concrete
+namespace NorthwindService.Application.Services.Data.Concrete
 {
     public abstract class BaseRepository<T> : IReadRepository<T> where T : BaseEntity
     {

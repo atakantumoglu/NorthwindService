@@ -1,4 +1,4 @@
-﻿using InventoryService.Domain.Entities;
+﻿using NorthwindService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InventoryService.Infrastructure.Data.EntityConfigurations
+namespace NorthwindService.Infrastructure.Data.EntityConfigurations
 {
     public class AlphabeticalListOfProductConfiguration : IEntityTypeConfiguration<AlphabeticalListOfProduct>
     {

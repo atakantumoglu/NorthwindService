@@ -1,8 +1,8 @@
-﻿using InventoryService.Application.Cqrs.Commands.CustomerCommands;
-using InventoryService.Application.ResponseObjects;
+﻿using NorthwindService.Application.Cqrs.Commands.CustomerCommands;
+using NorthwindService.Application.ResponseObjects;
 using MediatR;
 
-namespace InventoryService.Application.Cqrs.CommandHandlers.CustomerCommandHandlers
+namespace NorthwindService.Application.Cqrs.CommandHandlers.CustomerCommandHandlers
 {
     public class CustomerCreateCommandHandler : IRequestHandler<CustomerCreateCommand, ApiResponse>
     {

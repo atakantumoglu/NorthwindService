@@ -1,6 +1,6 @@
-﻿using InventoryService.Domain.Entities;
+﻿using NorthwindService.Domain.Entities;
 
-namespace InventoryService.Application.Services.Data.Abstract.Factory
+namespace NorthwindService.Application.Services.Data.Abstract.Factory
 {
     public interface IRepositoryFactory
     {

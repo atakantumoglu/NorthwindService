@@ -1,9 +1,9 @@
-using InventoryService.Api.Extensions;
-using InventoryService.Application;
-using InventoryService.Application.Services.Data.Abstract;
-using InventoryService.Application.Services.Data.EFCore;
-using InventoryService.Infrastructure.Data.Context;
-using InventoryService.Infrastructure.Options;
+using NorthwindService.Api.Extensions;
+using NorthwindService.Application;
+using NorthwindService.Application.Services.Data.Abstract;
+using NorthwindService.Application.Services.Data.EFCore;
+using NorthwindService.Infrastructure.Data.Context;
+using NorthwindService.Infrastructure.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
@@ -35,7 +35,6 @@ var assembly = Assembly.GetExecutingAssembly();
 
 builder.Services.AddApplication();
 
-
 // Interface implementations
 builder.Services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
 
@@ -50,7 +49,7 @@ builder.Services.RegisterServices();
 // Register the Swagger generator and the Swagger UI middlewares
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "InventoryService.Api", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "NorthwindService.Api", Version = "v1" });
 });
 
 var app = builder.Build();

@@ -1,7 +1,7 @@
 ﻿using Serilog;
 using System.Text.Json;
 
-namespace InventoryService.Api.Middlewares
+namespace NorthwindService.Api.Middlewares
 {
     public class ErrorHandlingMiddleware
     {
