@@ -14,6 +14,7 @@ This project offers a modern implementation of the Northwind database leveraging
 - **CQRS**: Separating read (query) and write (command) operations.
 - **DDD**: Establishing a rich domain model to encapsulate business logic.
 - **CRUD Operations**: All basic Create, Read, Update, and Delete operations are available for Northwind entities.
+- **UnitOfWork**: Ensures a transactional boundary for operations, providing a consistent way to coordinate and manage database operations.
 
 ## Getting Started
 
@@ -45,7 +46,7 @@ Provide brief examples or API documentation on how to interact with your service
 
 - **Presentation Layer**: Contains controllers.
 - **Domain Layer**: Contains enterprise logic and types.
-- **Application Layer**: This layer directs the expressed intent from the presentation layer to the domain layer.
+- **Application Layer**: This layer directs the expressed intent from the presentation layer to the domain layer. It also implements the `UnitOfWork` pattern ensuring a transactional boundary for operations.
 - **Infrastructure Layer**: Contains everything that operates outside of the context of the domain.
 
 
