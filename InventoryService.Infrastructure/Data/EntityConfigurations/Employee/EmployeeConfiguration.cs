@@ -8,10 +8,9 @@ namespace NorthwindService.Infrastructure.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
-            builder.HasKey(e => e.EmployeeId);
+            builder.HasKey(e => e.Id);
             builder.HasIndex(e => e.LastName, "LastName");
             builder.HasIndex(e => e.PostalCode, "PostalCode");
-            builder.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
             builder.Property(e => e.Address).HasMaxLength(60);
             builder.Property(e => e.BirthDate).HasColumnType("datetime");
             builder.Property(e => e.City).HasMaxLength(15);
@@ -32,7 +31,7 @@ namespace NorthwindService.Infrastructure.Data.EntityConfigurations
             builder.HasOne(d => d.ReportsToNavigation)
                 .WithMany(p => p.InverseReportsToNavigation)
                 .HasForeignKey(d => d.ReportsTo)
-                .HasPrincipalKey(d => d.EmployeeId)
+                .HasPrincipalKey(d => d.Id)
                 .HasConstraintName("FK_Employees_Employees");
 
             builder.HasMany(d => d.Territories).WithMany(p => p.Employees)
@@ -54,10 +53,9 @@ namespace NorthwindService.Infrastructure.Data.EntityConfigurations
                     {
                         j.HasKey("EmployeeId", "TerritoryId");
                         j.ToTable("EmployeeTerritories");
-                        j.IndexerProperty<int>("EmployeeId").HasColumnName("EmployeeID");
-                        j.IndexerProperty<string>("TerritoryId")
-                            .HasMaxLength(20)
-                            .HasColumnName("TerritoryID");
+                        j.IndexerProperty<Guid>("EmployeeId").HasColumnName("EmployeeId");
+                        j.IndexerProperty<Guid>("TerritoryId")
+                            .HasColumnName("TerritoryId");
                     });
         }
     }

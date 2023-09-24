@@ -8,19 +8,18 @@ namespace NorthwindService.Infrastructure.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.HasKey(e => e.ProductId);
+            builder.HasKey(e => e.Id);
             builder.HasIndex(e => e.CategoryId, "CategoriesProducts");
-            builder.HasIndex(e => e.CategoryId, "CategoryID");
+            builder.HasIndex(e => e.CategoryId, "CategoryId");
             builder.HasIndex(e => e.ProductName, "ProductName");
-            builder.HasIndex(e => e.SupplierId, "SupplierID");
+            builder.HasIndex(e => e.SupplierId, "SupplierId");
             builder.HasIndex(e => e.SupplierId, "SuppliersProducts");
-
-            builder.Property(e => e.ProductId).HasColumnName("ProductID");
-            builder.Property(e => e.CategoryId).HasColumnName("CategoryID");
+            builder.Property(e => e.ProductId).HasColumnName("ProductId");
+            builder.Property(e => e.CategoryId).HasColumnName("CategoryId");
             builder.Property(e => e.ProductName).HasMaxLength(40);
             builder.Property(e => e.QuantityPerUnit).HasMaxLength(20);
             builder.Property(e => e.ReorderLevel).HasDefaultValueSql("((0))");
-            builder.Property(e => e.SupplierId).HasColumnName("SupplierID");
+            builder.Property(e => e.SupplierId).HasColumnName("SupplierId");
             builder.Property(e => e.UnitPrice)
                 .HasDefaultValueSql("((0))")
                 .HasColumnType("money");

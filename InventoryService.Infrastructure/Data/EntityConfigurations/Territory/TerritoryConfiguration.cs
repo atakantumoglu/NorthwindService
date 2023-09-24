@@ -8,15 +8,12 @@ namespace NorthwindService.Infrastructure.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Territory> builder)
         {
-            builder.HasKey(e => e.TerritoryId);
-            builder.Property(e => e.TerritoryId)
-                .HasMaxLength(20)
-                .HasColumnName("TerritoryID");
-            builder.Property(e => e.RegionId).HasColumnName("RegionID");
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.RegionId);
+            builder.Property(e => e.RegionId).HasColumnName("RegionId");
             builder.Property(e => e.TerritoryDescription)
                 .HasMaxLength(50)
                 .IsFixedLength();
-
             builder.HasOne(d => d.Region).WithMany(p => p.Territories)
                 .HasForeignKey(d => d.RegionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
