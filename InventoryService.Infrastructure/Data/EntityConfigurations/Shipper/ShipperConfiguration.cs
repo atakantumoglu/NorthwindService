@@ -13,8 +13,7 @@ namespace NorthwindService.Infrastructure.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Shipper> builder)
         {
-            builder.HasKey(x => x.ShipperId);
-            builder.Property(e => e.ShipperId).HasColumnName("ShipperID");
+            builder.HasKey(x => x.Id);
             builder.Property(e => e.CompanyName).HasMaxLength(40);
             builder.Property(e => e.Phone).HasMaxLength(24);
         }

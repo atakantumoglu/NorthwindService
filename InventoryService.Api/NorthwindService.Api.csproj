@@ -33,7 +33,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\InventoryService.Application\NorthwindService.Application.csproj" />
-    <ProjectReference Include="..\InventoryService.Infrastructure\NorthwindService.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
