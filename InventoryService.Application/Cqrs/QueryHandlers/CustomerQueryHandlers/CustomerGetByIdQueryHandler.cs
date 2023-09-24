@@ -10,7 +10,7 @@ using MediatR;
 
 namespace NorthwindService.Application.Cqrs.QueryHandlers.CustomerQueryHandlers
 {
-    public class CustomerGetByIdQueryHandler : IRequestHandler<CustomerGetByIdQuery, ApiResponse>
+    public sealed class CustomerGetByIdQueryHandler : IRequestHandler<CustomerGetByIdQuery, ApiResponse>
     {
         private readonly IUnitOfWork<ApplicationDbContext> _unitOfWork;
         private readonly IMapper _mapper;

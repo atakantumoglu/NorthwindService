@@ -3,16 +3,17 @@ using NorthwindService.Application.Services.Data.Abstract;
 using NorthwindService.Infrastructure.Data.Context;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using NorthwindService.Application.Cqrs.Commands.CustomerCommands;
 
 namespace NorthwindService.Api.Controllers
 {
     [ApiController]
-    [Route("test-controller")]
-    public class TestController : Controller
+    [Route("customer")]
+    public class CustomerController : Controller
     {
         private readonly IUnitOfWork<ApplicationDbContext> _unitOfWork;
         private readonly IMediator _mediator;
-        public TestController(IUnitOfWork<ApplicationDbContext> unitOfWork, IMediator mediator)
+        public CustomerController(IUnitOfWork<ApplicationDbContext> unitOfWork, IMediator mediator)
         {
             _unitOfWork = unitOfWork;
             _mediator = mediator;
@@ -36,6 +37,14 @@ namespace NorthwindService.Api.Controllers
             var query = new CustomerGetListQuery();
 
             var response = await _mediator.Send(query);
+
+            return Ok(response);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create(CustomerCreateCommand command)
+        {
+            var response = await _mediator.Send(command);
 
             return Ok(response);
         }

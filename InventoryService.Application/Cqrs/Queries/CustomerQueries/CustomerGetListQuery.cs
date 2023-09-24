@@ -3,7 +3,7 @@ using MediatR;
 
 namespace NorthwindService.Application.Cqrs.Queries.CustomerQueries
 {
-    public class CustomerGetListQuery : IRequest<ApiResponse>
+    public record CustomerGetListQuery : IRequest<ApiResponse>
     {
     }
 }

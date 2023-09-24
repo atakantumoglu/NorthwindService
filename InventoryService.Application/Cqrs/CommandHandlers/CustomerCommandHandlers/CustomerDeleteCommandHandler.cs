@@ -4,7 +4,7 @@ using MediatR;
 
 namespace NorthwindService.Application.Cqrs.CommandHandlers.CustomerCommandHandlers
 {
-    public class CustomerDeleteCommandHandler : IRequestHandler<CustomerDeleteCommand, ApiResponse>
+    public sealed class CustomerDeleteCommandHandler : IRequestHandler<CustomerDeleteCommand, ApiResponse>
     {
         public Task<ApiResponse> Handle(CustomerDeleteCommand request, CancellationToken cancellationToken)
         {
