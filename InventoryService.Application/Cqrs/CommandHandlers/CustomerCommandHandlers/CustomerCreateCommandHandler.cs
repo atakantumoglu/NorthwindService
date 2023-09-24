@@ -29,7 +29,7 @@ namespace NorthwindService.Application.Cqrs.CommandHandlers.CustomerCommandHandl
 
             return new ApiResponse()
             {
-                Data = entity,
+                Data = entity.Entity,
                 IsSuccessful = true,
                 StatusCode = StatusCodes.Status200OK
             };

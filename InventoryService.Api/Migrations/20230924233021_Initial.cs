@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace NorthwindService.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class ColumnConfigurations : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,27 +31,6 @@ namespace NorthwindService.Api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CustomerDemographics",
-                columns: table => new
-                {
-                    CustomerTypeID = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: false),
-                    CustomerDesc = table.Column<string>(type: "ntext", nullable: true),
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TenantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LastModificationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastModifierId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeleterId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CustomerDemographics", x => x.CustomerTypeID);
                 });
 
             migrationBuilder.CreateTable(
@@ -145,7 +124,7 @@ namespace NorthwindService.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Shippers",
+                name: "Shipper",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -162,7 +141,7 @@ namespace NorthwindService.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Shippers", x => x.Id);
+                    table.PrimaryKey("PK_Shipper", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -193,30 +172,6 @@ namespace NorthwindService.Api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Suppliers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CustomerCustomerDemographic",
-                columns: table => new
-                {
-                    CustomerTypesCustomerTypeId = table.Column<string>(type: "nchar(10)", nullable: false),
-                    CustomersId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CustomerCustomerDemographic", x => new { x.CustomerTypesCustomerTypeId, x.CustomersId });
-                    table.ForeignKey(
-                        name: "FK_CustomerCustomerDemographic_CustomerDemographics_CustomerTypesCustomerTypeId",
-                        column: x => x.CustomerTypesCustomerTypeId,
-                        principalTable: "CustomerDemographics",
-                        principalColumn: "CustomerTypeID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CustomerCustomerDemographic_Customers_CustomersId",
-                        column: x => x.CustomersId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -288,7 +243,7 @@ namespace NorthwindService.Api.Migrations
                     table.ForeignKey(
                         name: "FK_Orders_Shippers",
                         column: x => x.ShipperId,
-                        principalTable: "Shippers",
+                        principalTable: "Shipper",
                         principalColumn: "Id");
                 });
 
@@ -391,11 +346,6 @@ namespace NorthwindService.Api.Migrations
                 name: "CategoryName",
                 table: "Categories",
                 column: "CategoryName");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CustomerCustomerDemographic_CustomersId",
-                table: "CustomerCustomerDemographic",
-                column: "CustomersId");
 
             migrationBuilder.CreateIndex(
                 name: "City",
@@ -542,16 +492,10 @@ namespace NorthwindService.Api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CustomerCustomerDemographic");
-
-            migrationBuilder.DropTable(
                 name: "EmployeeTerritories");
 
             migrationBuilder.DropTable(
                 name: "Order Details");
-
-            migrationBuilder.DropTable(
-                name: "CustomerDemographics");
 
             migrationBuilder.DropTable(
                 name: "Territories");
@@ -572,7 +516,7 @@ namespace NorthwindService.Api.Migrations
                 name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "Shippers");
+                name: "Shipper");
 
             migrationBuilder.DropTable(
                 name: "Categories");

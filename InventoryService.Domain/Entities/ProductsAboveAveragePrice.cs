@@ -1,7 +1,0 @@
-﻿namespace NorthwindService.Domain.Entities;
-
-public class ProductsAboveAveragePrice : BaseEntity
-{
-    public string ProductName { get; set; } = null!;
-    public decimal? UnitPrice { get; set; }
-}
