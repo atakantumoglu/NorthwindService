@@ -1,6 +1,6 @@
 ﻿namespace NorthwindService.Application.Dtos.CustomerDtos
 {
-    public class CustomerGetByIdDto
+    public sealed record CustomerGetByIdDto
     {
         public string CustomerId { get; set; } = null!;
         public string CompanyName { get; set; } = null!;
