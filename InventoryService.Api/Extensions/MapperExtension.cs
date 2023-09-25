@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using NorthwindService.Application.Mappers.CustomerMappers;
+using NorthwindService.Application.Mappers.UserMappers;
 
 namespace NorthwindService.Api.Extensions
 {
@@ -11,6 +12,7 @@ namespace NorthwindService.Api.Extensions
             {
                 //Customer Mapping Profiles
                 config.AddProfile<CustomerMappingProfile>();
+                config.AddProfile<UserMappingProfile>();
             });
 
             IMapper mapper = mapperConfiguration.CreateMapper();
