@@ -1,11 +1,7 @@
-﻿using NorthwindService.Application.ResponseObjects;
-using MediatR;
-
-namespace NorthwindService.Application.Cqrs.Commands.CustomerCommands
+﻿namespace NorthwindService.Application.Dtos.CustomerDtos
 {
-    public sealed class CustomerUpdateCommand : IRequest<ApiResponse>
+    public sealed class CustomerUpdateDto
     {
-        public Guid CustomerId { get; set; }
         public string CompanyName { get; set; } = null!;
         public string? ContactName { get; set; }
         public string? ContactTitle { get; set; }
