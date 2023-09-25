@@ -22,7 +22,7 @@ namespace NorthwindService.Application.Cqrs.CommandHandlers.CustomerCommandHandl
 
         public async Task<ApiResponse> Handle(CustomerUpdateCommand request, CancellationToken cancellationToken)
         {
-            var existingCustomer = await GetExistingCustomer(request.CustomerId);
+            var existingCustomer = await GetExistingCustomer(request.Id);
 
             UpdateCustomerDetails(existingCustomer, request);
 

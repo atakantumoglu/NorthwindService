@@ -5,7 +5,7 @@ namespace NorthwindService.Application.Cqrs.Commands.CustomerCommands
 {
     public sealed class CustomerUpdateCommand : IRequest<ApiResponse>
     {
-        public Guid CustomerId { get; set; }
+        public Guid Id { get; set; }
         public string CompanyName { get; set; } = null!;
         public string? ContactName { get; set; }
         public string? ContactTitle { get; set; }
