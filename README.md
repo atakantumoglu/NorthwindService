@@ -1,57 +1,46 @@
-
-
-
-# Northwind Service with MediatR, CQRS, and DDD
-
+# Northwind API Service
 <b>An educational .Net Core Api Project</b>
 ## Overview
 
-This project offers a modern implementation of the Northwind database leveraging MediatR for mediator pattern, CQRS for clear separation of command and query responsibilities, and Domain-Driven Design for modeling complex business domains. This repository provides a clean and scalable approach to building CRUD operations on top of the Northwind database.
+<!-- Optionally, you can put a logo related to Northwind or your project here -->
 
-## Features
+This project is an effort to modernize the classic Northwind database by building an API service using current and cutting-edge technologies. Developed using C#, ASP.NET Core 7, and EntityFramework Core, this API service aims to provide an experiential platform to interact with Northwind entities using a range of design patterns and architectural approaches.
 
-- **MediatR**: Implementing the mediator pattern to decouple request handling.
-- **CQRS**: Separating read (query) and write (command) operations.
-- **DDD**: Establishing a rich domain model to encapsulate business logic.
-- **CRUD Operations**: All basic Create, Read, Update, and Delete operations are available for Northwind entities.
-- **UnitOfWork**: Ensures a transactional boundary for operations, providing a consistent way to coordinate and manage database operations.
+## 🏗 Architecture
 
-## Getting Started
+The project follows a layered architectural approach:
 
-### Prerequisites
+1. **Domain Layer**: This innermost layer hosts the Entities and Value Objects.
+2. **Infrastructure Layer**: Connected to the Domain layer, it contains the Database Options Setup, Context objects, and entity configurations.
+3. **Application Layer**: This is where the business logic of the application resides.
+4. **Presentation Layer**: Comprises of the Controllers, which are responsible for returning the responses.
 
-- .NET Core SDK
-- SQL Server (For Northwind database)
+## 📐 Design Patterns and Approaches
 
-### Installation
+- **Mediator Pattern** using MediatR.
+- **Generic Repository Pattern**.
+- **UnitOfWork Pattern** complementing the Generic Repository Pattern.
+- **CQRS Pattern** (Command Query Responsibility Segregation).
 
-1. Clone the repository:
-git clone git@github.com:atakantumoglu/NorthwindService.git
+## 📚 About the Northwind Database
 
-2. Navigate to the project directory:
-cd .\InventoryService.Api\
+By leveraging the Database First approach with the pre-existing Northwind database, I efficiently generated the required entities without the hassle of manual creation. This step was instrumental, providing a robust foundation without the need for direct database manipulation. Following this, I shifted towards the Code First paradigm. This transition wasn’t just a change in methodology; it represented an evolution in flexibility. By inheriting these entities from my custom BaseEntity class, I gained the capability to manage all database-related configurations directly from the code. This approach allowed for intricate enhancements and modifications without necessitating direct interventions in the database structure itself, epitomizing the union of convenience and control.
 
-3. Restore packages and build the project:
-dotnet restore
-dotnet build
+## 🚀 Getting Started
 
-6. Start the application:
-dotnet run
+<!-- You might want to include steps for setting up the project locally, such as cloning the repository, installing dependencies, setting up the database, and running the application. -->
 
-## Usage
+1. Clone the repository: `git clone https://github.com/atakantumoglu/NorthwindService.git`
+2. Navigate to the project directory and install the dependencies.
+3. Create a migration using .NET CLI or Package Manager Console.
+4. Update Database with Initial migration.
+5. Run the application using the appropriate command.
+6. Explore the API documentation for available endpoints and functionalities.
 
-Provide brief examples or API documentation on how to interact with your service. (e.g., API endpoints, request-response examples).
+## 🤝 Contribution
 
-## Architecture
+<!-- Optionally, you can add a section on how people can contribute, report issues, or request features. -->
 
-- **Presentation Layer**: Contains controllers.
-- **Domain Layer**: Contains enterprise logic and types.
-- **Application Layer**: This layer directs the expressed intent from the presentation layer to the domain layer. It also implements the `UnitOfWork` pattern ensuring a transactional boundary for operations.
-- **Infrastructure Layer**: Contains everything that operates outside of the context of the domain.
-
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Feel free to contribute to this project by submitting pull requests or reporting issues. Any feedback or suggestions are welcomed!
 
 
