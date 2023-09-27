@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using NorthwindService.Application.Cqrs.Commands.CustomerCommands;
 using NorthwindService.Application.Cqrs.Commands.UserCommands;
 using NorthwindService.Application.Services.Data.Abstract;
 using NorthwindService.Infrastructure.Data.Context;

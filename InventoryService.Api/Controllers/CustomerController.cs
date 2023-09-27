@@ -1,12 +1,13 @@
-﻿using NorthwindService.Application.Cqrs.Queries.CustomerQueries;
-using NorthwindService.Application.Services.Data.Abstract;
-using NorthwindService.Infrastructure.Data.Context;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NorthwindService.Application.Cqrs.Commands.CustomerCommands;
+using NorthwindService.Application.Cqrs.Queries.CustomerQueries;
+using NorthwindService.Application.Services.Data.Abstract;
+using NorthwindService.Infrastructure.Data.Context;
 
 namespace NorthwindService.Api.Controllers
 {
+    //[Authorize]
     [ApiController]
     [Route("customer")]
     public class CustomerController : Controller
@@ -29,7 +30,6 @@ namespace NorthwindService.Api.Controllers
 
             return Ok(response);
         }
-
         [HttpGet]
         public async Task<ActionResult> GetList()
         {

@@ -1,4 +1,5 @@
-﻿using NorthwindService.Domain.Entities;
+﻿using Microsoft.AspNetCore.Identity;
+using NorthwindService.Domain.Entities;
 
 namespace NorthwindService.Application.Services.Data.Abstract.Factory
 {
