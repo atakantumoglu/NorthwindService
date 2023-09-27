@@ -1,7 +1,8 @@
 # Northwind API Service
+![image](https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSWsMsBO1BpbGdRWsXQ37QK01JhpdNUXAEFuWqdF1roFeelNUrT)
+
 <b>An educational .Net Core Api Project</b>
 ## Overview
-
 <!-- Optionally, you can put a logo related to Northwind or your project here -->
 
 This project is an effort to modernize the classic Northwind database by building an API service using current and cutting-edge technologies. Developed using C#, ASP.NET Core 7, and EntityFramework Core, this API service aims to provide an experiential platform to interact with Northwind entities using a range of design patterns and architectural approaches.
