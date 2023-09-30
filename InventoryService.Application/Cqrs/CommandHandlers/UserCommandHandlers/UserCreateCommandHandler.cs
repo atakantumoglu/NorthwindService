@@ -1,18 +1,12 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using NorthwindService.Application.Cqrs.Commands.UserCommands;
 using NorthwindService.Application.ResponseObjects;
 using NorthwindService.Application.Services.Data.Abstract;
 using NorthwindService.Application.Services.Data.Helper;
 using NorthwindService.Domain.Entities;
 using NorthwindService.Infrastructure.Data.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NorthwindService.Application.Cqrs.CommandHandlers.UserCommandHandlers
 {

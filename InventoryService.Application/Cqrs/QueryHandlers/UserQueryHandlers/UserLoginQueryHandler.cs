@@ -4,7 +4,6 @@ using Microsoft.IdentityModel.Tokens;
 using NorthwindService.Application.Cqrs.Queries.UserQueries;
 using NorthwindService.Application.ResponseObjects;
 using NorthwindService.Application.Services.Data.Abstract;
-using NorthwindService.Application.Services.Data.Helper;
 using NorthwindService.Domain.Entities;
 using NorthwindService.Infrastructure.Data.Context;
 using System.IdentityModel.Tokens.Jwt;
@@ -34,9 +33,9 @@ namespace NorthwindService.Application.Cqrs.QueryHandlers.UserQueryHandlers
             var claims = new Claim[]
             {
                  new Claim(ClaimTypes.NameIdentifier, request.Email),
-                 new Claim(ClaimTypes.Name,"Atakan"),
-                 new Claim(JwtRegisteredClaimNames.Aud,"atakan"),
-                 new Claim(JwtRegisteredClaimNames.Iss,"atakan")
+                 //new Claim(ClaimTypes.Name,"Atakan"),
+                 new Claim(JwtRegisteredClaimNames.Aud,"NorthwindService Audience"),
+                 new Claim(JwtRegisteredClaimNames.Iss,"NorthwindService")
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretkeysecretkeysecretkeysecretkey"));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

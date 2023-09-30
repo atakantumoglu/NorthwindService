@@ -1,15 +1,9 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using NorthwindService.Application.Cqrs.Commands.CustomerCommands;
 using NorthwindService.Application.Cqrs.Commands.UserCommands;
 using NorthwindService.Application.Cqrs.Queries.UserQueries;
 using NorthwindService.Application.Services.Data.Abstract;
 using NorthwindService.Infrastructure.Data.Context;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace NorthwindService.Api.Controllers
 {

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using NorthwindService.Api.Middlewares;
 using System.Text;
@@ -9,13 +8,13 @@ namespace NorthwindService.Api.Extensions
 {
     public static class ApiConfigurationExtensions
     {
-        public static void AddApiConfiguration(this IServiceCollection services)
+        public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "NorthwindService.API", Version = "v1" });
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -51,9 +50,9 @@ namespace NorthwindService.Api.Extensions
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = Guid.Empty.ToString(),
-                ValidAudience ="atakan",
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretkeysecretkeysecretkeysecretkey"))
+                ValidIssuer = configuration["JwtSettings:ValidIssuer"],
+                ValidAudience = configuration["JwtSettings:ValidAudience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSettings:SecretKey"]))
             });
         }
         public static void UseApiConfigurations(this WebApplication app)
