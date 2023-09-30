@@ -47,10 +47,6 @@ builder.Services.AddApiConfiguration();
 builder.Services.RegisterServices();
 
 // Register the Swagger generator and the Swagger UI middlewares
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "NorthwindService.Api", Version = "v1" });
-});
 
 var app = builder.Build();
 
