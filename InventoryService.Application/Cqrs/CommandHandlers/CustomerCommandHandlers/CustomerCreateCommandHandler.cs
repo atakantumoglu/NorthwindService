@@ -1,12 +1,11 @@
-﻿using NorthwindService.Application.Cqrs.Commands.CustomerCommands;
-using NorthwindService.Application.ResponseObjects;
+﻿using AutoMapper;
 using MediatR;
-using NorthwindService.Application.Services.Data.Abstract;
-using NorthwindService.Infrastructure.Data.Context;
-using Microsoft.AspNetCore.Http.HttpResults;
-using NorthwindService.Domain.Entities;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using NorthwindService.Application.Cqrs.Commands.CustomerCommands;
+using NorthwindService.Application.ResponseObjects;
+using NorthwindService.Application.Services.Data.Abstract;
+using NorthwindService.Domain.Entities;
+using NorthwindService.Infrastructure.Data.Context;
 
 namespace NorthwindService.Application.Cqrs.CommandHandlers.CustomerCommandHandlers
 {
@@ -23,13 +22,29 @@ namespace NorthwindService.Application.Cqrs.CommandHandlers.CustomerCommandHandl
 
         public async Task<ApiResponse> Handle(CustomerCreateCommand request, CancellationToken cancellationToken)
         {
-            Customer mappedCustomer = _mapper.Map<Customer>(request);
-            var entity = await _unitOfWork.GetRepositoryAsync<Customer>().InsertAsync(mappedCustomer);
-            await _unitOfWork.CommitAsync();
+            var newCustomer = MapRequestToCustomer(request);
+            var savedCustomer = await SaveNewCustomerAsync(newCustomer);
 
+            return CreateSuccessResponse(savedCustomer);
+        }
+
+        private Customer MapRequestToCustomer(CustomerCreateCommand request)
+        {
+            return _mapper.Map<Customer>(request);
+        }
+
+        private async Task<Customer> SaveNewCustomerAsync(Customer customer)
+        {
+            var entity = await _unitOfWork.GetRepositoryAsync<Customer>().InsertAsync(customer);
+            await _unitOfWork.CommitAsync();
+            return entity.Entity;
+        }
+
+        private ApiResponse CreateSuccessResponse(Customer savedCustomer)
+        {
             return new ApiResponse()
             {
-                Data = entity,
+                Data = savedCustomer,
                 IsSuccessful = true,
                 StatusCode = StatusCodes.Status200OK
             };

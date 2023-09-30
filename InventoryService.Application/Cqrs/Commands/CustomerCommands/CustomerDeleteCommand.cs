@@ -3,7 +3,8 @@ using MediatR;
 
 namespace NorthwindService.Application.Cqrs.Commands.CustomerCommands
 {
-    public record CustomerDeleteCommand : IRequest<ApiResponse>
+    public sealed class CustomerDeleteCommand : IRequest<ApiResponse>
     {
+        public Guid CustomerId { get; set; }
     }
 }

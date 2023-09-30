@@ -3,8 +3,18 @@ using MediatR;
 
 namespace NorthwindService.Application.Cqrs.Commands.CustomerCommands
 {
-    public record CustomerUpdateCommand : IRequest<ApiResponse>
+    public sealed class CustomerUpdateCommand : IRequest<ApiResponse>
     {
-        public Guid CustomerId { get; set; }
+        public Guid Id { get; set; }
+        public string CompanyName { get; set; } = null!;
+        public string? ContactName { get; set; }
+        public string? ContactTitle { get; set; }
+        public string? Address { get; set; }
+        public string? City { get; set; }
+        public string? Region { get; set; }
+        public string? PostalCode { get; set; }
+        public string? Country { get; set; }
+        public string? Phone { get; set; }
+        public string? Fax { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace NorthwindService.Application.Cqrs.Commands.CustomerCommands
 {
-    public record CustomerCreateCommand : IRequest<ApiResponse>
+    public sealed class CustomerCreateCommand : IRequest<ApiResponse>
     {
         public string CompanyName { get; set; } = null!;
         public string? ContactName { get; set; }

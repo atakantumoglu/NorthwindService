@@ -1,10 +1,9 @@
 ﻿namespace NorthwindService.Domain.Entities;
 
-public  class Employee : BaseEntity
+public class Employee : BaseEntity
 {
-    public int EmployeeId { get; set; }
-    public string LastName { get; set; } = null!;
     public string FirstName { get; set; } = null!;
+    public string LastName { get; set; } = null!;
     public string? Title { get; set; }
     public string? TitleOfCourtesy { get; set; }
     public DateTime? BirthDate { get; set; }
@@ -18,8 +17,8 @@ public  class Employee : BaseEntity
     public string? Extension { get; set; }
     public byte[]? Photo { get; set; }
     public string? Notes { get; set; }
-    public int? ReportsTo { get; set; }
     public string? PhotoPath { get; set; }
+    public Guid? ReportsTo { get; set; }
     public virtual ICollection<Employee> InverseReportsToNavigation { get; } = new List<Employee>();
     public virtual ICollection<Order> Orders { get; } = new List<Order>();
     public virtual Employee? ReportsToNavigation { get; set; }

@@ -8,21 +8,18 @@ namespace NorthwindService.Infrastructure.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-            builder.HasKey(x => x.OrderId);
-            builder.HasIndex(e => e.CustomerId, "CustomerID");
+            builder.HasKey(x => x.Id);
+            builder.HasIndex(e => e.CustomerId, "CustomerId");
             builder.HasIndex(e => e.CustomerId, "CustomersOrders");
-            builder.HasIndex(e => e.EmployeeId, "EmployeeID");
+            builder.HasIndex(e => e.EmployeeId, "EmployeeId");
             builder.HasIndex(e => e.EmployeeId, "EmployeesOrders");
             builder.HasIndex(e => e.OrderDate, "OrderDate");
             builder.HasIndex(e => e.ShipPostalCode, "ShipPostalCode");
             builder.HasIndex(e => e.ShippedDate, "ShippedDate");
-            builder.HasIndex(e => e.ShipVia, "ShippersOrders");
-            builder.Property(e => e.OrderId).HasColumnName("OrderID");
+            builder.HasIndex(e => e.ShipperId, "ShippersOrders");
             builder.Property(e => e.CustomerId)
-                .HasMaxLength(5)
-                .IsFixedLength()
-                .HasColumnName("CustomerID");
-            builder.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
+                .HasColumnName("CustomerId");
+            builder.Property(e => e.EmployeeId).HasColumnName("EmployeeId");
             builder.Property(e => e.Freight)
                 .HasDefaultValueSql("((0))")
                 .HasColumnType("money");
@@ -45,7 +42,7 @@ namespace NorthwindService.Infrastructure.Data.EntityConfigurations
                 .HasConstraintName("FK_Orders_Employees");
 
             builder.HasOne(d => d.ShipViaNavigation).WithMany(p => p.Orders)
-                .HasForeignKey(d => d.ShipVia)
+                .HasForeignKey(d => d.ShipperId)
                 .HasConstraintName("FK_Orders_Shippers");
         }
     }

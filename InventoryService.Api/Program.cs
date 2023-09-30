@@ -1,16 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using NorthwindService.Api.Extensions;
 using NorthwindService.Application;
 using NorthwindService.Application.Services.Data.Abstract;
 using NorthwindService.Application.Services.Data.EFCore;
 using NorthwindService.Infrastructure.Data.Context;
 using NorthwindService.Infrastructure.Options;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var configuration = builder.Configuration;
 // Add services to the container.
 
 builder.Services.ConfigureOptions<DatabaseOptionsSetup>();
@@ -43,14 +42,10 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
-builder.Services.AddApiConfiguration();
+builder.Services.AddApiConfiguration(configuration);
 builder.Services.RegisterServices();
 
 // Register the Swagger generator and the Swagger UI middlewares
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "NorthwindService.Api", Version = "v1" });
-});
 
 var app = builder.Build();
 

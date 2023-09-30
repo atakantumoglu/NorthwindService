@@ -14,8 +14,7 @@ namespace NorthwindService.Application.Mappers.CustomerMappers
             CreateMap<Customer, CustomerCreateDto>().ReverseMap();
             CreateMap<Customer, CustomerGetListDto>().ReverseMap();
             CreateMap<CustomerGetByIdDto, CustomerGetListDto>().ReverseMap();
-
-
+            CreateMap<Customer, CustomerUpdateDto>().ReverseMap();
         }
     }
 }

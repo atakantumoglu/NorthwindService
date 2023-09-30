@@ -8,11 +8,9 @@ namespace NorthwindService.Infrastructure.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Supplier> builder)
         {
-            builder.HasKey(x => x.SupplierId);
+            builder.HasKey(x => x.Id);
             builder.HasIndex(e => e.CompanyName, "CompanyName");
             builder.HasIndex(e => e.PostalCode, "PostalCode");
-
-            builder.Property(e => e.SupplierId).HasColumnName("SupplierID");
             builder.Property(e => e.Address).HasMaxLength(60);
             builder.Property(e => e.City).HasMaxLength(15);
             builder.Property(e => e.CompanyName).HasMaxLength(40);
