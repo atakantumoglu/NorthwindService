@@ -4,11 +4,14 @@ using NorthwindService.Infrastructure.Data.Context;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NorthwindService.Application.Cqrs.Commands.CustomerCommands;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NorthwindService.Api.Controllers
 {
     [ApiController]
-    [Route("customer")]
+    [Route("api/customer")]
+    [Authorize]
+
     public class CustomerController : Controller
     {
         private readonly IUnitOfWork<ApplicationDbContext> _unitOfWork;

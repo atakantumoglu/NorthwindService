@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using NorthwindService.Application.Cqrs.Commands.UserCommands;
 using NorthwindService.Application.ResponseObjects;
 using NorthwindService.Application.Services.Data.Abstract;
+using NorthwindService.Application.Services.Data.Helper;
 using NorthwindService.Domain.Entities;
 using NorthwindService.Infrastructure.Data.Context;
 using System;
@@ -27,13 +29,19 @@ namespace NorthwindService.Application.Cqrs.CommandHandlers.UserCommandHandlers
 
         public async Task<ApiResponse> Handle(UserCreateCommand request, CancellationToken cancellationToken)
         {
+            var hashedSaltedPassword = CryptoHelper.GetSaltedHashedPassword(request.Password);
+
             User user = await _unitOfWork.GetReadOnlyRepositoryAsync<User>().SingleOrDefaultAsync(u => u.Email.Equals(request.Email));
             if (user != null)
             {
                 throw new Exception("This account is already exists");
             }
 
-            await _unitOfWork.GetRepositoryAsync<User>().InsertAsync(_mapper.Map<User>(request));
+            var mappedUser = _mapper.Map<User>(request);
+            mappedUser.Salt = hashedSaltedPassword.salt;
+            mappedUser.Password = hashedSaltedPassword.hashedPassword;
+
+            await _unitOfWork.GetRepositoryAsync<User>().InsertAsync(mappedUser);
 
             await _unitOfWork.CommitAsync();
 
