@@ -12,14 +12,17 @@ namespace NorthwindService.Api.Controllers
     [Route("api/customer")]
     [Authorize]
 
-    public class CustomerController : Controller
+    public class CustomerController : BaseController<CustomerController>
     {
-        private readonly IUnitOfWork<ApplicationDbContext> _unitOfWork;
         private readonly IMediator _mediator;
-        public CustomerController(IUnitOfWork<ApplicationDbContext> unitOfWork, IMediator mediator)
+        private readonly ILogger<CustomerController> _logger;
+        private readonly IHttpContextAccessor _contextAccessor;
+
+        public CustomerController(IMediator mediator, ILogger<CustomerController> logger, IHttpContextAccessor contextAccessor) : base(mediator, contextAccessor, logger)
         {
-            _unitOfWork = unitOfWork;
             _mediator = mediator;
+            _logger = logger;
+            _contextAccessor = contextAccessor;
         }
 
         [HttpGet]

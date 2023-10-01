@@ -24,15 +24,12 @@ namespace NorthwindService.Application.Cqrs.QueryHandlers.UserQueryHandlers
 
         public async Task<ApiResponse> Handle(UserLoginQuery request, CancellationToken cancellationToken)
         {
-            var validation = await ValidateUser(request.Email, request.Password);
+            var user = await ValidateUser(request.Email, request.Password);
 
-            if (!validation)
-            {
-                throw new Exception("Email or password incorrect");
-            }
+         
             var claims = new Claim[]
             {
-                 new Claim(ClaimTypes.NameIdentifier, request.Email),
+                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                  //new Claim(ClaimTypes.Name,"Atakan"),
                  new Claim(JwtRegisteredClaimNames.Aud,"NorthwindService Audience"),
                  new Claim(JwtRegisteredClaimNames.Iss,"NorthwindService")
@@ -54,7 +51,7 @@ namespace NorthwindService.Application.Cqrs.QueryHandlers.UserQueryHandlers
             };
         }
 
-        public async Task<bool> ValidateUser(string email, string password)
+        public async Task<User> ValidateUser(string email, string password)
         {
 
             var userFromDb = await GetUserFromDatabase(email);
@@ -63,7 +60,11 @@ namespace NorthwindService.Application.Cqrs.QueryHandlers.UserQueryHandlers
             var hashedPassword = HashWithSalt(password, userFromDb.Salt);
 
             // Elde edilen hash'lenmiş değeri, veritabanındaki hash'lenmiş değerle karşılaştır.
-            return hashedPassword == userFromDb.Password;
+            if (hashedPassword != userFromDb.Password)
+            {
+                throw new Exception("Username or password incorrect");
+            }
+            return userFromDb;
         }
 
         public async Task<User> GetUserFromDatabase(string email)
@@ -75,6 +76,7 @@ namespace NorthwindService.Application.Cqrs.QueryHandlers.UserQueryHandlers
             }
             return new User
             {
+                Id = user.Id,
                 Email = user.Email,
                 Password = user.Password,
                 Salt = user.Salt

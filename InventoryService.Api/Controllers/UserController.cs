@@ -11,12 +11,10 @@ namespace NorthwindService.Api.Controllers
     [Route("api/user")]
     public class UserController : Controller
     {
-        private readonly IUnitOfWork<ApplicationDbContext> _unitOfWork;
         private readonly IMediator _mediator;
 
-        public UserController(IUnitOfWork<ApplicationDbContext> unitOfWork, IMediator mediator)
+        public UserController(IMediator mediator)
         {
-            _unitOfWork = unitOfWork;
             _mediator = mediator;
         }
 
