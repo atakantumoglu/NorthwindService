@@ -15,13 +15,11 @@ namespace NorthwindService.Api.Controllers
     public class CustomerController : BaseController<CustomerController>
     {
         private readonly IMediator _mediator;
-        private readonly ILogger<CustomerController> _logger;
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public CustomerController(IMediator mediator, ILogger<CustomerController> logger, IHttpContextAccessor contextAccessor) : base(mediator, contextAccessor, logger)
+        public CustomerController(IMediator mediator, IHttpContextAccessor contextAccessor) : base(mediator, contextAccessor)
         {
             _mediator = mediator;
-            _logger = logger;
             _contextAccessor = contextAccessor;
         }
 

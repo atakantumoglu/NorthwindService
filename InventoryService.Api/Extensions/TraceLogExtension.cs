@@ -1,4 +1,6 @@
-﻿namespace NorthwindService.Api.Extensions
+﻿using Serilog;
+
+namespace NorthwindService.Api.Extensions
 {
     public class TraceLogExtension
     {
@@ -21,8 +23,7 @@
             var requestBodyText = new StreamReader(requestBodyStream).ReadToEnd();
 
             // İsteği loglama
-            Console.WriteLine($"Request: {context.Request.Method} {context.Request.Path} {requestBodyText}");
-
+            Log.Information("Request log");
             requestBodyStream.Seek(0, SeekOrigin.Begin);
             context.Request.Body = requestBodyStream;
 
@@ -38,7 +39,7 @@
                 var responseBodyText = await new StreamReader(responseBodyStream).ReadToEndAsync();
 
                 // Yanıtı loglama
-                Console.WriteLine($"Response: {context.Response.StatusCode} {responseBodyText}");
+                _logger.LogInformation("Response log");
 
                 responseBodyStream.Seek(0, SeekOrigin.Begin);
                 await responseBodyStream.CopyToAsync(originalBodyStream);

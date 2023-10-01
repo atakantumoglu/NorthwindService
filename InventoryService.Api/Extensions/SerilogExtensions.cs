@@ -1,12 +1,6 @@
 ﻿using Serilog;
-using Serilog.Events;
-using Serilog.Filters;
-using System;
-
 namespace NorthwindService.Api.Extensions
 {
-
-
     public static class SerilogExtensions
     {
         public static WebApplicationBuilder AddSerilog(this WebApplicationBuilder builder, string applicationName, IConfiguration configuration)
@@ -20,8 +14,10 @@ namespace NorthwindService.Api.Extensions
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();
 
-            builder.Logging.ClearProviders();
-            builder.Host.UseSerilog(Log.Logger, true);
+            builder.Services.AddLogging(c =>
+            {
+                c.AddSerilog();
+            });
 
             return builder;
         }
