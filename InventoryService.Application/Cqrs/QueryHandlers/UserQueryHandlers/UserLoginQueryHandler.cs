@@ -26,11 +26,10 @@ namespace NorthwindService.Application.Cqrs.QueryHandlers.UserQueryHandlers
         {
             var user = await ValidateUser(request.Email, request.Password);
 
-         
+
             var claims = new Claim[]
             {
                  new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                 //new Claim(ClaimTypes.Name,"Atakan"),
                  new Claim(JwtRegisteredClaimNames.Aud,"NorthwindService Audience"),
                  new Claim(JwtRegisteredClaimNames.Iss,"NorthwindService")
             };
