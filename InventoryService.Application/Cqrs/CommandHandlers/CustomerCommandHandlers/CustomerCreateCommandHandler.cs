@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using NorthwindService.Application.Cqrs.Commands.CustomerCommands;
 using NorthwindService.Application.ResponseObjects;
 using NorthwindService.Application.Services.Data.Abstract;
@@ -13,18 +14,20 @@ namespace NorthwindService.Application.Cqrs.CommandHandlers.CustomerCommandHandl
     {
         private readonly IUnitOfWork<ApplicationDbContext> _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly ILogger<CustomerCreateCommandHandler> _logger;
 
-        public CustomerCreateCommandHandler(IUnitOfWork<ApplicationDbContext> unitOfWork, IMapper mapper)
+        public CustomerCreateCommandHandler(IUnitOfWork<ApplicationDbContext> unitOfWork, IMapper mapper, ILogger<CustomerCreateCommandHandler> logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<ApiResponse> Handle(CustomerCreateCommand request, CancellationToken cancellationToken)
         {
             var newCustomer = MapRequestToCustomer(request);
             var savedCustomer = await SaveNewCustomerAsync(newCustomer);
-
+            _logger.LogInformation($"Created customer {savedCustomer}");
             return CreateSuccessResponse(savedCustomer);
         }
 
