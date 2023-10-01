@@ -1,7 +1,7 @@
 # Northwind API Service
 ![image](https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSWsMsBO1BpbGdRWsXQ37QK01JhpdNUXAEFuWqdF1roFeelNUrT)
 
-<b>An educational .Net Core Api Project</b>
+<b>An educational .Net Core API project</b>
 ## Overview
 <!-- Optionally, you can put a logo related to Northwind or your project here -->
 
