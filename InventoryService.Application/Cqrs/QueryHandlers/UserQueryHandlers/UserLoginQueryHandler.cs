@@ -21,7 +21,6 @@ namespace NorthwindService.Application.Cqrs.QueryHandlers.UserQueryHandlers
         {
             _unitOfWork = unitOfWork;
         }
-
         public async Task<ApiResponse> Handle(UserLoginQuery request, CancellationToken cancellationToken)
         {
             var user = await ValidateUser(request.Email, request.Password);
@@ -39,8 +38,6 @@ namespace NorthwindService.Application.Cqrs.QueryHandlers.UserQueryHandlers
 
             var token = new JwtSecurityToken(claims: claims, expires: expireDate, signingCredentials: credentials, notBefore: DateTime.Now);
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
-
 
             return new ApiResponse()
             {
@@ -61,7 +58,7 @@ namespace NorthwindService.Application.Cqrs.QueryHandlers.UserQueryHandlers
             // Elde edilen hash'lenmiş değeri, veritabanındaki hash'lenmiş değerle karşılaştır.
             if (hashedPassword != userFromDb.Password)
             {
-                throw new Exception("Username or password incorrect");
+                throw new Exception("Email or password incorrect");
             }
             return userFromDb;
         }

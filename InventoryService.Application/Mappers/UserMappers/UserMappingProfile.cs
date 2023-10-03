@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using NorthwindService.Application.Cqrs.Commands.UserCommands;
-using NorthwindService.Application.Dtos.CustomerDtos;
 using NorthwindService.Application.Dtos.UserDtos;
 using NorthwindService.Domain.Entities;
 
 namespace NorthwindService.Application.Mappers.UserMappers
 {
-    public class UserMappingProfile : Profile
+    public sealed class UserMappingProfile : Profile
     {
         public UserMappingProfile()
         {

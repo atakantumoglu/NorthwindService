@@ -26,12 +26,12 @@ namespace NorthwindService.Api.Middlewares
 
         private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            //Log.Error(exception, "Unhandled error");
+            Log.Error(exception, "Unhandled error");
 
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
-            var result = JsonSerializer.Serialize(new { error = exception?.Message }, new JsonSerializerOptions()
+            var result = JsonSerializer.Serialize(new { Error = exception?.Message }, new JsonSerializerOptions()
             {
                 WriteIndented = true,
                 DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,

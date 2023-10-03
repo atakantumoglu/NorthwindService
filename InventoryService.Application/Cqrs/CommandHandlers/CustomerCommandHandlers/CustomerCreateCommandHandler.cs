@@ -27,7 +27,7 @@ namespace NorthwindService.Application.Cqrs.CommandHandlers.CustomerCommandHandl
         {
             var newCustomer = MapRequestToCustomer(request);
             var savedCustomer = await SaveNewCustomerAsync(newCustomer);
-            _logger.LogInformation($"Created customer {savedCustomer}");
+
             return CreateSuccessResponse(savedCustomer);
         }
 

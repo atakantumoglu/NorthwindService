@@ -5,7 +5,7 @@ using NorthwindService.Domain.Entities;
 
 namespace NorthwindService.Application.Mappers.CustomerMappers
 {
-    public class CustomerMappingProfile : Profile
+    public sealed class CustomerMappingProfile : Profile
     {
         public CustomerMappingProfile()
         {
