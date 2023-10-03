@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using NorthwindService.Application.Cqrs.Commands.UserCommands;
 using NorthwindService.Application.Cqrs.Queries.UserQueries;
-using NorthwindService.Application.Services.Data.Abstract;
-using NorthwindService.Infrastructure.Data.Context;
 
 namespace NorthwindService.Api.Controllers
 {
@@ -18,7 +16,6 @@ namespace NorthwindService.Api.Controllers
             _mediator = mediator;
         }
 
-
         [HttpPost]
         public async Task<ActionResult> Create(UserCreateCommand command)
         {
@@ -28,9 +25,9 @@ namespace NorthwindService.Api.Controllers
         }
       
         [HttpPost("login")]
-        public async Task<ActionResult> Login(UserLoginQuery command)
+        public async Task<ActionResult> Login(UserLoginQuery query)
         {
-            var response = await _mediator.Send(command);
+            var response = await _mediator.Send(query);
 
             return Ok(response);
         }

@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
+using MediatR;
 using NorthwindService.Application.Cqrs.Queries.CustomerQueries;
 using NorthwindService.Application.Dtos.CustomerDtos;
 using NorthwindService.Application.ResponseObjects;
 using NorthwindService.Application.Services.Data.Abstract;
 using NorthwindService.Domain.Entities;
 using NorthwindService.Infrastructure.Data.Context;
-using MediatR;
-using Microsoft.Extensions.Logging;
-using Serilog;
 
 namespace NorthwindService.Application.Cqrs.QueryHandlers.CustomerQueryHandlers
 {

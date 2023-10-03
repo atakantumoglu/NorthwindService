@@ -2,7 +2,7 @@
 
 namespace NorthwindService.Application.ResponseObjects
 {
-    public class ApiResponse
+    public sealed class ApiResponse
     {
         [JsonPropertyName("data")]
         public object Data { get; set; }

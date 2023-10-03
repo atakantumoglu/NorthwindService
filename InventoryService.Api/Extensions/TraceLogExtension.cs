@@ -23,7 +23,7 @@ namespace NorthwindService.Api.Extensions
             var requestBodyText = new StreamReader(requestBodyStream).ReadToEnd();
 
             // İsteği loglama
-            Log.Information("Request log");
+            Log.Information("Request: {0}", requestBodyText);
             requestBodyStream.Seek(0, SeekOrigin.Begin);
             context.Request.Body = requestBodyStream;
 
@@ -39,7 +39,7 @@ namespace NorthwindService.Api.Extensions
                 var responseBodyText = await new StreamReader(responseBodyStream).ReadToEndAsync();
 
                 // Yanıtı loglama
-                _logger.LogInformation("Response log");
+                Log.Information("Response: {0} ", responseBodyText);
 
                 responseBodyStream.Seek(0, SeekOrigin.Begin);
                 await responseBodyStream.CopyToAsync(originalBodyStream);
