@@ -9,7 +9,7 @@ namespace NorthwindService.Infrastructure.Data.EntityConfigurations
         public void Configure(EntityTypeBuilder<Region> builder)
         {
             builder.HasKey(e => e.Id);
-            builder.ToTable("Region");
+            builder.ToTable("Regions");
             builder.Property(e => e.RegionDescription)
                 .HasMaxLength(50)
                 .IsFixedLength();

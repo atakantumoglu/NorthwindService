@@ -3,8 +3,8 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using NorthwindService.Application.Cqrs.Commands.UserCommands;
 using NorthwindService.Application.ResponseObjects;
-using NorthwindService.Application.Services.Data.Abstract;
-using NorthwindService.Application.Services.Data.Helper;
+using NorthwindService.Application.Services.Abstract.UnitOfWork;
+using NorthwindService.Application.Services.Helpers;
 using NorthwindService.Domain.Entities;
 using NorthwindService.Infrastructure.Data.Context;
 

@@ -1,10 +1,8 @@
-﻿using NorthwindService.Application.Cqrs.Queries.CustomerQueries;
-using NorthwindService.Application.Services.Data.Abstract;
-using NorthwindService.Infrastructure.Data.Context;
-using MediatR;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NorthwindService.Application.Cqrs.Commands.CustomerCommands;
-using Microsoft.AspNetCore.Authorization;
+using NorthwindService.Application.Cqrs.Queries.CustomerQueries;
 
 namespace NorthwindService.Api.Controllers
 {
@@ -35,9 +33,9 @@ namespace NorthwindService.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetList()
+        public async Task<ActionResult> GetList(int pageNumber, int size, bool isDeleted)
         {
-            var query = new CustomerGetListQuery();
+            var query = new CustomerGetListQuery(pageNumber, size, isDeleted);
 
             var response = await _mediator.Send(query);
 

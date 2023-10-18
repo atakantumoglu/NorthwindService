@@ -9,7 +9,7 @@ namespace NorthwindService.Infrastructure.Data.EntityConfigurations
         public void Configure(EntityTypeBuilder<OrderDetail> builder)
         {
             builder.HasKey(e => e.Id);
-            builder.ToTable("Order Details");
+            builder.ToTable("OrderDetails");
             builder.HasIndex(e => e.OrderId, "OrderID");
             builder.HasIndex(e => e.OrderId, "OrdersOrder_Details");
             builder.HasIndex(e => e.ProductId, "ProductID");

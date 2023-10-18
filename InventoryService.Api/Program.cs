@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using NorthwindService.Api.Extensions;
+using NorthwindService.Api.Middlewares;
 using NorthwindService.Application;
-using NorthwindService.Application.Services.Data.Abstract;
-using NorthwindService.Application.Services.Data.EFCore;
+using NorthwindService.Application.Services.Abstract.UnitOfWork;
+using NorthwindService.Application.Services.EFCore;
 using NorthwindService.Infrastructure.Data.Context;
 using NorthwindService.Infrastructure.Options;
 using Serilog;
@@ -31,8 +32,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(
         dbContextOptionsBuilder.EnableSensitiveDataLogging(databaseOptions.EnableSensitiveDataLogging);
     });
 
-// Mapper Configurations
-
 builder.Services.AddApplication();
 
 // Interface implementations
@@ -50,7 +49,7 @@ builder.Services.RegisterServices();
 // Register the Swagger generator and the Swagger UI middlewares
 
 var app = builder.Build();
-app.UseMiddleware<TraceLogExtension>();
+app.UseMiddleware<TraceLogMiddleware>();
 // Configure the HTTP request pipeline.
 app.UseApiConfigurations();
 
