@@ -7,7 +7,7 @@ namespace NorthwindService.Api.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class BaseController<T> : ControllerBase
+    public class BaseController<T> : ControllerBase where T : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IHttpContextAccessor _contextAccessor;

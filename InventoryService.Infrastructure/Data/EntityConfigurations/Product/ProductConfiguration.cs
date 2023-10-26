@@ -14,7 +14,6 @@ namespace NorthwindService.Infrastructure.Data.EntityConfigurations
             builder.HasIndex(e => e.ProductName, "ProductName");
             builder.HasIndex(e => e.SupplierId, "SupplierId");
             builder.HasIndex(e => e.SupplierId, "SuppliersProducts");
-            builder.Property(e => e.ProductId).HasColumnName("ProductId");
             builder.Property(e => e.CategoryId).HasColumnName("CategoryId");
             builder.Property(e => e.ProductName).HasMaxLength(40);
             builder.Property(e => e.QuantityPerUnit).HasMaxLength(20);

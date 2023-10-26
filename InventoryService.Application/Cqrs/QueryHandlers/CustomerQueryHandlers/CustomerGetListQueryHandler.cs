@@ -1,11 +1,11 @@
-﻿using AutoMapper;
-using MediatR;
-using NorthwindService.Application.Cqrs.Queries.CustomerQueries;
+﻿using NorthwindService.Application.Cqrs.Queries.CustomerQueries;
 using NorthwindService.Application.Dtos.CustomerDtos;
 using NorthwindService.Application.ResponseObjects;
-using NorthwindService.Application.Services.Data.Abstract;
+using NorthwindService.Application.Services.Abstract.UnitOfWork;
 using NorthwindService.Domain.Entities;
 using NorthwindService.Infrastructure.Data.Context;
+using AutoMapper;
+using MediatR;
 
 namespace NorthwindService.Application.Cqrs.QueryHandlers.CustomerQueryHandlers
 {
@@ -23,7 +23,7 @@ namespace NorthwindService.Application.Cqrs.QueryHandlers.CustomerQueryHandlers
         public async Task<ApiResponse> Handle(CustomerGetListQuery request, CancellationToken cancellationToken)
         {
 
-            var customerList = await _unitOfWork.GetReadOnlyRepositoryAsync<Customer>().GetListAsync(c => c.IsDeleted.Equals(false));
+            var customerList = await _unitOfWork.GetReadOnlyRepositoryAsync<Customer>().GetListAsync(pageNumber: request.PageNumber, size: request.Size);
 
             if (customerList == null)
             {

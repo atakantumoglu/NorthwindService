@@ -2,7 +2,6 @@
 
 public class Product : BaseEntity
 {
-    public Guid ProductId { get; set; }
     public string ProductName { get; set; } = null!;
     public Guid? SupplierId { get; set; }
     public Guid? CategoryId { get; set; }

@@ -3,7 +3,7 @@ using MediatR;
 using NorthwindService.Application.Cqrs.Queries.CustomerQueries;
 using NorthwindService.Application.Dtos.CustomerDtos;
 using NorthwindService.Application.ResponseObjects;
-using NorthwindService.Application.Services.Data.Abstract;
+using NorthwindService.Application.Services.Abstract.UnitOfWork;
 using NorthwindService.Domain.Entities;
 using NorthwindService.Infrastructure.Data.Context;
 

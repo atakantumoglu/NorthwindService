@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using NorthwindService.Application.Cqrs.Queries.UserQueries;
 using NorthwindService.Application.ResponseObjects;
-using NorthwindService.Application.Services.Data.Abstract;
+using NorthwindService.Application.Services.Abstract.UnitOfWork;
 using NorthwindService.Domain.Entities;
 using NorthwindService.Infrastructure.Data.Context;
 using System.IdentityModel.Tokens.Jwt;
