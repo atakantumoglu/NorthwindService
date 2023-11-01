@@ -10,6 +10,12 @@ namespace NorthwindService.Api.Extensions
     {
         public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddStackExchangeRedisCache(redisOptions =>
+            {
+                string connectionString = configuration.GetConnectionString("Redis");
+                redisOptions.Configuration = connectionString;
+                
+            });
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(c =>
