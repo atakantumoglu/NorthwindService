@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using NorthwindService.Application.Cqrs.Queries.UserQueries;
 using NorthwindService.Application.ResponseObjects;
 using NorthwindService.Application.Services.Abstract.UnitOfWork;
@@ -16,15 +18,16 @@ namespace NorthwindService.Application.Cqrs.QueryHandlers.UserQueryHandlers
     public class UserLoginQueryHandler : IRequestHandler<UserLoginQuery, ApiResponse>
     {
         private readonly IUnitOfWork<ApplicationDbContext> _unitOfWork;
+        private readonly IDistributedCache _distributedCache;
 
-        public UserLoginQueryHandler(IUnitOfWork<ApplicationDbContext> unitOfWork)
+        public UserLoginQueryHandler(IUnitOfWork<ApplicationDbContext> unitOfWork, IDistributedCache distributedCache)
         {
             _unitOfWork = unitOfWork;
+            _distributedCache = distributedCache;
         }
         public async Task<ApiResponse> Handle(UserLoginQuery request, CancellationToken cancellationToken)
         {
             var user = await ValidateUser(request.Email, request.Password);
-
 
             var claims = new Claim[]
             {
@@ -65,11 +68,26 @@ namespace NorthwindService.Application.Cqrs.QueryHandlers.UserQueryHandlers
 
         public async Task<User> GetUserFromDatabase(string email)
         {
-            var user = await _unitOfWork.GetReadOnlyRepositoryAsync<User>().SingleOrDefaultAsync(u => u.Email.Equals(email));
-            if (user == null)
+            string? cachedUser = await _distributedCache.GetStringAsync(email);
+
+            User? user;
+
+            if (string.IsNullOrEmpty(cachedUser))
             {
-                throw new Exception("User cannot found");
+                user = await _unitOfWork.GetReadOnlyRepositoryAsync<User>().SingleOrDefaultAsync(u => u.Email.Equals(email));
+                
+                if (user == null)
+                {
+                    throw new Exception("User cannot found");
+                }
+
+                await _distributedCache.SetStringAsync(email, JsonConvert.SerializeObject(user));
+
+                return user;
             }
+
+            user = JsonConvert.DeserializeObject<User>(cachedUser);
+
             return new User
             {
                 Id = user.Id,
@@ -77,6 +95,7 @@ namespace NorthwindService.Application.Cqrs.QueryHandlers.UserQueryHandlers
                 Password = user.Password,
                 Salt = user.Salt
             };
+
         }
 
         public string HashWithSalt(string password, string salt)
