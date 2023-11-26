@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using NorthwindService.Api.Extensions;
@@ -55,5 +56,3 @@ app.UseApiConfigurations();
 
 
 app.Run();
-
-

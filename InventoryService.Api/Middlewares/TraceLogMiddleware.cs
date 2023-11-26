@@ -2,15 +2,8 @@
 
 namespace NorthwindService.Api.Middlewares
 {
-    public class TraceLogMiddleware
+    public class TraceLogMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
-
-        public TraceLogMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
-
         public async Task InvokeAsync(HttpContext context)
         {
             // İsteği okuma
@@ -33,7 +26,7 @@ namespace NorthwindService.Api.Middlewares
             {
                 context.Response.Body = responseBodyStream;
 
-                await _next(context);
+                await next(context);
 
                 responseBodyStream.Seek(0, SeekOrigin.Begin);
                 var responseBodyText = await new StreamReader(responseBodyStream).ReadToEndAsync();

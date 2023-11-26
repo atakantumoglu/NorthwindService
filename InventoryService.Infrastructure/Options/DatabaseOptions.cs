@@ -7,6 +7,6 @@
         public int CommandTimeout { get; set; }
         public bool EnableSensitiveDataLogging { get; set; }
         public bool EnableDetailedErrors { get; set; }
-        public string MigrationAssembly { get; set; }
+        public string? MigrationAssembly { get; set; }
     }
 }

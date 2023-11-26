@@ -7,15 +7,11 @@ using NorthwindService.Application.Services.Abstract;
 
 namespace NorthwindService.Application.Services.Concrete
 {
-    public class RepositoryReadOnlyAsync<T> : RepositoryAsync<T>, IRepositoryReadOnlyAsync<T> where T : BaseEntity
+    public class RepositoryReadOnlyAsync<T>(DbContext context, IHttpContextAccessor httpContextAccessor)
+        : RepositoryAsync<T>(context, httpContextAccessor), IRepositoryReadOnlyAsync<T>
+        where T : BaseEntity
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public RepositoryReadOnlyAsync(DbContext context, IHttpContextAccessor httpContextAccessor)
-            : base(context, httpContextAccessor)
-        {
-            _httpContextAccessor = httpContextAccessor ?? null;
-        }
+        private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor ?? null;
 
         public async Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,

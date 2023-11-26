@@ -5,7 +5,7 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>0342c1e7-01ff-4ad5-8c5c-fdc3f8d1afe4</UserSecretsId>
-		<DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
 	</PropertyGroup>
 
@@ -15,8 +15,8 @@
 		<PackageReference Include="EntityFramework" Version="6.4.4" />
 		<PackageReference Include="MediatR" Version="12.1.1" />
 		<PackageReference Include="MediatR.Contracts" Version="2.0.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0-rc.2.23480.1" />
-		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.13" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.13" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0-rc.2.23480.1" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0-rc.2.23480.1">
 			<PrivateAssets>all</PrivateAssets>
@@ -31,11 +31,11 @@
 		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.13" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0-rc.2.23479.6" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
-		<PackageReference Include="MongoDb.Driver" Version="2.21.0" />
+		<PackageReference Include="MongoDb.Driver" Version="2.22.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="Serilog" Version="3.0.1" />
+		<PackageReference Include="Serilog" Version="3.1.1" />
 		<PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
-		<PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+		<PackageReference Include="Serilog.Sinks.Console" Version="5.0.0" />
 		<PackageReference Include="Serilog.Sinks.MongoDb" Version="5.3.1" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 		<PackageReference Include="System.ObjectModel" Version="4.3.0" />

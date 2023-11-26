@@ -3,27 +3,21 @@ using Microsoft.Extensions.Options;
 
 namespace NorthwindService.Infrastructure.Options
 {
-    public class DatabaseOptionsSetup : IConfigureOptions<DatabaseOptions>
+    public class DatabaseOptionsSetup(IConfiguration configuration) : IConfigureOptions<DatabaseOptions>
     {
         private const string ConfigurationSectionName = "DatabaseOptions";
-        private readonly IConfiguration _configuration;
-
-        public DatabaseOptionsSetup(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
 
         public void Configure(DatabaseOptions options)
         {
-            var connectionString = _configuration.GetConnectionString("Database");
+            var connectionString = configuration.GetConnectionString("Database")!;
 
-            var migrationsAssembly = _configuration.GetSection("DatabaseOptions:MigrationsAssembly").Value;
+            var migrationsAssembly = configuration.GetSection("DatabaseOptions:MigrationsAssembly").Value;
 
             options.ConnectionString = connectionString;
 
             options.MigrationAssembly = migrationsAssembly;
 
-            _configuration.GetSection(ConfigurationSectionName).Bind(options);
+            configuration.GetSection(ConfigurationSectionName).Bind(options);
         }
     }
 }

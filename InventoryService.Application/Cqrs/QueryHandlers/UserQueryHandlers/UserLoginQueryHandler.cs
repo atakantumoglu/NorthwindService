@@ -15,25 +15,17 @@ using System.Text;
 
 namespace NorthwindService.Application.Cqrs.QueryHandlers.UserQueryHandlers
 {
-    public class UserLoginQueryHandler : IRequestHandler<UserLoginQuery, ApiResponse>
+    public class UserLoginQueryHandler(IUnitOfWork<ApplicationDbContext> unitOfWork, IDistributedCache distributedCache) : IRequestHandler<UserLoginQuery, ApiResponse>
     {
-        private readonly IUnitOfWork<ApplicationDbContext> _unitOfWork;
-        private readonly IDistributedCache _distributedCache;
-
-        public UserLoginQueryHandler(IUnitOfWork<ApplicationDbContext> unitOfWork, IDistributedCache distributedCache)
-        {
-            _unitOfWork = unitOfWork;
-            _distributedCache = distributedCache;
-        }
         public async Task<ApiResponse> Handle(UserLoginQuery request, CancellationToken cancellationToken)
         {
             var user = await ValidateUser(request.Email, request.Password);
 
             var claims = new Claim[]
             {
-                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                 new Claim(JwtRegisteredClaimNames.Aud,"NorthwindService Audience"),
-                 new Claim(JwtRegisteredClaimNames.Iss,"NorthwindService")
+                 new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                 new(JwtRegisteredClaimNames.Aud,"NorthwindService Audience"),
+                 new(JwtRegisteredClaimNames.Iss,"NorthwindService")
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretkeysecretkeysecretkeysecretkey"));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -52,7 +44,6 @@ namespace NorthwindService.Application.Cqrs.QueryHandlers.UserQueryHandlers
 
         public async Task<User> ValidateUser(string email, string password)
         {
-
             var userFromDb = await GetUserFromDatabase(email);
 
             // Kullanıcının giriş yaparken verdiği şifreyi, veritabanından alınan salt değeri ile hash'le.
@@ -68,20 +59,20 @@ namespace NorthwindService.Application.Cqrs.QueryHandlers.UserQueryHandlers
 
         public async Task<User> GetUserFromDatabase(string email)
         {
-            string? cachedUser = await _distributedCache.GetStringAsync(email);
+            string? cachedUser = await distributedCache.GetStringAsync(email);
 
             User? user;
 
             if (string.IsNullOrEmpty(cachedUser))
             {
-                user = await _unitOfWork.GetReadOnlyRepositoryAsync<User>().SingleOrDefaultAsync(u => u.Email.Equals(email));
+                user = await unitOfWork.GetReadOnlyRepositoryAsync<User>().SingleOrDefaultAsync(u => u.Email.Equals(email));
                 
                 if (user == null)
                 {
                     throw new Exception("User cannot found");
                 }
 
-                await _distributedCache.SetStringAsync(email, JsonConvert.SerializeObject(user));
+                await distributedCache.SetStringAsync(email, JsonConvert.SerializeObject(user));
 
                 return user;
             }
@@ -97,7 +88,7 @@ namespace NorthwindService.Application.Cqrs.QueryHandlers.UserQueryHandlers
             };
 
         }
-
+        
         public string HashWithSalt(string password, string salt)
         {
             byte[] saltBytes = Convert.FromBase64String(salt);

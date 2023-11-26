@@ -7,15 +7,10 @@ namespace NorthwindService.Api.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class BaseController<T> : ControllerBase where T : ControllerBase
+    public class BaseController<T>(IMediator mediator, IHttpContextAccessor contextAccessor) : ControllerBase
+        where T : ControllerBase
     {
-        private readonly IMediator _mediator;
-        private readonly IHttpContextAccessor _contextAccessor;
-
-        public BaseController(IMediator mediator, IHttpContextAccessor contextAccessor)
-        {
-            _mediator = mediator;
-            _contextAccessor = contextAccessor;
-        }
+        private readonly IMediator _mediator = mediator;
+        private readonly IHttpContextAccessor _contextAccessor = contextAccessor;
     }
 }

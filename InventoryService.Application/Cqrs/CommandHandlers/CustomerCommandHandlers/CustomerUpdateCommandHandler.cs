@@ -9,16 +9,10 @@ using NorthwindService.Infrastructure.Data.Context;
 
 namespace NorthwindService.Application.Cqrs.CommandHandlers.CustomerCommandHandlers
 {
-    public sealed class CustomerUpdateCommandHandler : IRequestHandler<CustomerUpdateCommand, ApiResponse>
+    public sealed class CustomerUpdateCommandHandler(IUnitOfWork<ApplicationDbContext> unitOfWork, IMapper mapper)
+        : IRequestHandler<CustomerUpdateCommand, ApiResponse>
     {
-        private readonly IUnitOfWork<ApplicationDbContext> _unitOfWork;
-        private readonly IMapper _mapper;
-
-        public CustomerUpdateCommandHandler(IUnitOfWork<ApplicationDbContext> unitOfWork, IMapper mapper)
-        {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
-        }
+        private readonly IMapper _mapper = mapper;
 
         public async Task<ApiResponse> Handle(CustomerUpdateCommand request, CancellationToken cancellationToken)
         {
@@ -26,15 +20,15 @@ namespace NorthwindService.Application.Cqrs.CommandHandlers.CustomerCommandHandl
 
             UpdateCustomerDetails(existingCustomer, request);
 
-            _unitOfWork.GetRepository<Customer>().Update(existingCustomer);
-            _unitOfWork.Commit();
+            unitOfWork.GetRepository<Customer>().Update(existingCustomer);
+            unitOfWork.Commit();
 
             return CreateSuccessResponse(existingCustomer);
         }
 
         private async Task<Customer> GetExistingCustomer(Guid customerId)
         {
-            var existingCustomer = await _unitOfWork.GetReadOnlyRepositoryAsync<Customer>().SingleOrDefaultAsync(c => c.Id.Equals(customerId));
+            var existingCustomer = await unitOfWork.GetReadOnlyRepositoryAsync<Customer>().SingleOrDefaultAsync(c => c.Id.Equals(customerId));
 
             if (existingCustomer == null)
             {
@@ -69,8 +63,5 @@ namespace NorthwindService.Application.Cqrs.CommandHandlers.CustomerCommandHandl
         }
     }
 
-    public class CustomerNotFoundException : Exception
-    {
-        public CustomerNotFoundException(string message) : base(message) { }
-    }
+    public class CustomerNotFoundException(string message) : Exception(message);
 }

@@ -3,17 +3,10 @@ using NorthwindService.Application.ResponseObjects;
 
 namespace NorthwindService.Application.Cqrs.Queries.CustomerQueries
 {
-    public record CustomerGetListQuery : IRequest<ApiResponse>
+    public record CustomerGetListQuery(int PageNumber, int Size, bool IsDeleted) : IRequest<ApiResponse>
     {
-        public CustomerGetListQuery(int pageNumber, int size, bool isDeleted)
-        {
-            PageNumber = pageNumber;
-            Size = size;
-            IsDeleted = isDeleted;
-        }
-
-        public int PageNumber { get; set; }
-        public int Size { get; set; }
-        public bool IsDeleted { get; set; }
+        public int PageNumber { get; set; } = PageNumber;
+        public int Size { get; set; } = Size;
+        public bool IsDeleted { get; set; } = IsDeleted;
     }
 }

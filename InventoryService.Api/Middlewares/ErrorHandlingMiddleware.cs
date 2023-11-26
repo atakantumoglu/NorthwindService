@@ -3,15 +3,8 @@ using System.Text.Json;
 
 namespace NorthwindService.Api.Middlewares
 {
-    public class ErrorHandlingMiddleware
+    public class ErrorHandlingMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate next;
-
-        public ErrorHandlingMiddleware(RequestDelegate next)
-        {
-            this.next = next;
-        }
-
         public async Task Invoke(HttpContext context)
         {
             try
