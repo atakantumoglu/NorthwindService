@@ -8,15 +8,11 @@ using NorthwindService.Application.Services.Abstract;
 
 namespace NorthwindService.Application.Services.Concrete
 {
-    public class Repository<T> : BaseRepository<T>, IRepository<T>, IReadRepository<T>, IDisposable where T : BaseEntity
+    public class Repository<T>(DbContext context, IHttpContextAccessor httpContextAccessor)
+        : BaseRepository<T>(context), IRepository<T>, IReadRepository<T>, IDisposable
+        where T : BaseEntity
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public Repository(DbContext context, IHttpContextAccessor httpContextAccessor)
-            : base(context)
-        {
-            _httpContextAccessor = httpContextAccessor ?? null;
-        }
+        private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor ?? null;
 
         public T SingleOrDefault(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, bool enableTracking = true, bool ignoreQueryFilters = false)
         {

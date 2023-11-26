@@ -8,19 +8,15 @@ using NorthwindService.Domain.Entities;
 
 namespace NorthwindService.Application.Services.EFCore
 {
-    public class UnitOfWork<TContext> : IRepositoryFactory, IUnitOfWork<TContext>, IUnitOfWork, IDisposable where TContext : DbContext, IDisposable
+    public class UnitOfWork<TContext>(TContext context, IHttpContextAccessor httpContextAccessor) : IRepositoryFactory,
+        IUnitOfWork<TContext>, IUnitOfWork, IDisposable
+        where TContext : DbContext, IDisposable
     {
         private Dictionary<(Type type, string name), object> _repositories;
 
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor ?? null;
 
-        public TContext Context { get; }
-
-        public UnitOfWork(TContext context, IHttpContextAccessor httpContextAccessor)
-        {
-            Context = context ?? throw new ArgumentNullException("context");
-            _httpContextAccessor = httpContextAccessor ?? null;
-        }
+        public TContext Context { get; } = context ?? throw new ArgumentNullException("context");
 
         public IRepository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity
         {

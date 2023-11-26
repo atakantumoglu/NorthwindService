@@ -2,7 +2,7 @@
 {
     public class BaseEntity 
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; init; }
         public Guid? TenantId { get; set; }
         public DateTime CreationTime { get; set; }
         public Guid CreatorId { get; set; }

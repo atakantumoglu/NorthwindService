@@ -7,19 +7,12 @@ namespace NorthwindService.Api.Controllers
 {
     [ApiController]
     [Route("api/user")]
-    public class UserController : Controller
+    public class UserController(IMediator mediator) : Controller
     {
-        private readonly IMediator _mediator;
-
-        public UserController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
         [HttpPost]
         public async Task<ActionResult> Create(UserCreateCommand command)
         {
-            var response = await _mediator.Send(command);
+            var response = await mediator.Send(command);
 
             return Ok(response);
         }
@@ -27,7 +20,7 @@ namespace NorthwindService.Api.Controllers
         [HttpPost("login")]
         public async Task<ActionResult> Login(UserLoginQuery query)
         {
-            var response = await _mediator.Send(query);
+            var response = await mediator.Send(query);
 
             return Ok(response);
         }

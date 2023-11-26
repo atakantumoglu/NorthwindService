@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  northwindservice.api:
+    image: ${DOCKER_REGISTRY-}northwindserviceapi
+    ports:
+      - "5000:80"
+    build:
+      context: .
+      dockerfile: InventoryService.Api/Dockerfile
+    depends_on:
+      - sql
+  sql:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: "sql_server"
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=MssqlPass123
+
+
+  northwindservice.api-1:
+    image: northwindservice.api-1
+    build:
+      context: .
+      dockerfile: InventoryService.Api/Dockerfile

@@ -10,16 +10,9 @@ namespace NorthwindService.Api.Controllers
     [Route("api/customer")]
     [Authorize]
 
-    public class CustomerController : BaseController<CustomerController>
+    public class CustomerController(IMediator mediator, IHttpContextAccessor contextAccessor) : BaseController<CustomerController>(mediator, contextAccessor)
     {
-        private readonly IMediator _mediator;
-        private readonly IHttpContextAccessor _contextAccessor;
-
-        public CustomerController(IMediator mediator, IHttpContextAccessor contextAccessor) : base(mediator, contextAccessor)
-        {
-            _mediator = mediator;
-            _contextAccessor = contextAccessor;
-        }
+        private readonly IHttpContextAccessor _contextAccessor = contextAccessor;
 
         [HttpGet]
         [Route("get-by-id")]
@@ -27,7 +20,7 @@ namespace NorthwindService.Api.Controllers
         {
             var query = new CustomerGetByIdQuery(customerId);
 
-            var response = await _mediator.Send(query);
+            var response = await mediator.Send(query);
 
             return Ok(response);
         }
@@ -37,7 +30,7 @@ namespace NorthwindService.Api.Controllers
         {
             var query = new CustomerGetListQuery(pageNumber, size, isDeleted);
 
-            var response = await _mediator.Send(query);
+            var response = await mediator.Send(query);
 
             return Ok(response);
         }
@@ -45,7 +38,7 @@ namespace NorthwindService.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(CustomerCreateCommand command)
         {
-            var response = await _mediator.Send(command);
+            var response = await mediator.Send(command);
 
             return Ok(response);
         }
@@ -53,14 +46,14 @@ namespace NorthwindService.Api.Controllers
         [HttpPut]
         public async Task<ActionResult> Update(CustomerUpdateCommand command)
         {
-            var response = await _mediator.Send(command);
+            var response = await mediator.Send(command);
 
             return Ok(response);
         }
         [HttpDelete]
         public async Task<ActionResult> Delete([FromQuery] CustomerDeleteCommand command)
         {
-            var response = await _mediator.Send(command);
+            var response = await mediator.Send(command);
 
             return Ok(response);
         }

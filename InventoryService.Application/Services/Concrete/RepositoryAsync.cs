@@ -10,17 +10,11 @@ using NorthwindService.Application.Services.Concrete.Paging;
 
 namespace NorthwindService.Application.Services.Concrete
 {
-    public class RepositoryAsync<T> : IRepositoryAsync<T> where T : BaseEntity
+    public class RepositoryAsync<T>(DbContext dbContext, IHttpContextAccessor httpContextAccessor)
+        : IRepositoryAsync<T>
+        where T : BaseEntity
     {
-        private readonly DbSet<T> _dbSet;
-
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public RepositoryAsync(DbContext dbContext, IHttpContextAccessor httpContextAccessor)
-        {
-            _dbSet = dbContext.Set<T>();
-            _httpContextAccessor = httpContextAccessor;
-        }
+        private readonly DbSet<T> _dbSet = dbContext.Set<T>();
 
         public virtual async Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, bool enableTracking = true, bool ignoreQueryFilters = false)
         {
@@ -122,7 +116,7 @@ namespace NorthwindService.Application.Services.Concrete
 
         public virtual ValueTask<EntityEntry<T>> InsertAsync(T entity, CancellationToken cancellationToken = default)
         {
-            Guid creatorId = _httpContextAccessor.HttpContext!.User.Id();
+            Guid creatorId = httpContextAccessor.HttpContext!.User.Id();
             entity.CreationTime = DateTime.Now;
             entity.CreatorId = creatorId;
             return _dbSet.AddAsync(entity, cancellationToken);
@@ -132,7 +126,7 @@ namespace NorthwindService.Application.Services.Concrete
         {
             foreach (T entity in entities)
             {
-                entity.CreatorId = _httpContextAccessor.HttpContext!.User.Id();
+                entity.CreatorId = httpContextAccessor.HttpContext!.User.Id();
                 entity.CreationTime = DateTime.Now;
             }
 

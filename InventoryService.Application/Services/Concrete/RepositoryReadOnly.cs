@@ -6,13 +6,9 @@ using NorthwindService.Application.Services.Abstract;
 
 namespace NorthwindService.Application.Services.Concrete
 {
-    public class RepositoryReadOnly<T> : BaseRepository<T>, IRepositoryReadOnly<T> where T : BaseEntity
+    public class RepositoryReadOnly<T>(DbContext context) : BaseRepository<T>(context), IRepositoryReadOnly<T>
+        where T : BaseEntity
     {
-        public RepositoryReadOnly(DbContext context)
-            : base(context)
-        {
-        }
-
         public T SingleOrDefault(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)

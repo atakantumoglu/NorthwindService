@@ -8,29 +8,22 @@ using NorthwindService.Infrastructure.Data.Context;
 
 namespace NorthwindService.Application.Cqrs.CommandHandlers.CustomerCommandHandlers
 {
-    public sealed class CustomerDeleteCommandHandler : IRequestHandler<CustomerDeleteCommand, ApiResponse>
+    public sealed class CustomerDeleteCommandHandler(IUnitOfWork<ApplicationDbContext> unitOfWork) : IRequestHandler<CustomerDeleteCommand, ApiResponse>
     {
-        private readonly IUnitOfWork<ApplicationDbContext> _unitOfWork;
-
-        public CustomerDeleteCommandHandler(IUnitOfWork<ApplicationDbContext> unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
-
         public async Task<ApiResponse> Handle(CustomerDeleteCommand request, CancellationToken cancellationToken)
         {
             var existingCustomer = await FindCustomerByIdAsync(request.CustomerId);
 
             SoftDeleteCustomer(existingCustomer);
 
-            _unitOfWork.Commit();
+            unitOfWork.Commit();
 
             return CreateSuccessResponse(existingCustomer);
         }
 
         private async Task<Customer> FindCustomerByIdAsync(Guid customerId)
         {
-            var customer = await _unitOfWork.GetReadOnlyRepositoryAsync<Customer>().SingleOrDefaultAsync(c => c.Id.Equals(customerId));
+            var customer = await unitOfWork.GetReadOnlyRepositoryAsync<Customer>().SingleOrDefaultAsync(c => c.Id.Equals(customerId));
 
             if (customer == null)
             {
@@ -42,7 +35,7 @@ namespace NorthwindService.Application.Cqrs.CommandHandlers.CustomerCommandHandl
 
         private void SoftDeleteCustomer(Customer customer)
         {
-            _unitOfWork.DeleteRepository<Customer>().SoftDelete(customer);
+            unitOfWork.DeleteRepository<Customer>().SoftDelete(customer);
         }
 
         private ApiResponse CreateSuccessResponse(Customer deletedCustomer)
