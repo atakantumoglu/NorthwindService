@@ -81,7 +81,7 @@ namespace NorthwindService.Application.Cqrs.QueryHandlers.UserQueryHandlers
 
             return new User
             {
-                Id = user.Id,
+                Id = user!.Id,
                 Email = user.Email,
                 Password = user.Password,
                 Salt = user.Salt
