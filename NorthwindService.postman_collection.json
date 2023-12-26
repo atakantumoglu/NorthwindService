@@ -1,0 +1,343 @@
+{
+	"info": {
+		"_postman_id": "8f558313-5e0a-4de0-9099-c32e39a40b56",
+		"name": "NorthwindService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26352343"
+	},
+	"item": [
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "GetList",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"id is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.data).to.be.an('array');",
+									"  ",
+									"  responseData.data.forEach(function (customer) {",
+									"    pm.expect(customer.id).to.be.a('string').and.to.have.lengthOf.at.least(1);",
+									"  });",
+									"});",
+									"",
+									"",
+									"pm.test(\"companyName is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData.data).to.be.an('array').that.is.not.empty;",
+									"    responseData.data.forEach(function (customer) {",
+									"        pm.expect(customer.companyName).to.be.a('string').and.to.have.length.of.at.least(1);",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"contactName is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.data).to.be.an('array').that.is.not.empty;",
+									"    ",
+									"    responseData.data.forEach(function (customer) {",
+									"        pm.expect(customer.contactName).to.be.a('string').and.to.have.lengthOf.at.least(1, \"contactName should not be empty\");",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{Localhost}}"
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 400\", function () {",
+									"    pm.expect(pm.response.code).to.equal(400);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the errors object\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.errors).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"customerId field is empty in the errors object\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.errors).to.exist.and.to.be.an(\"object\").that.has.property(\"customerId\");",
+									"    pm.expect(responseData.errors.customerId).to.be.an(\"array\").that.is.empty;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate type, title, status, and traceId fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.type).to.exist.and.to.be.a('string');",
+									"    pm.expect(responseData.title).to.exist.and.to.be.a('string');",
+									"    pm.expect(responseData.status).to.exist.and.to.be.a('number');",
+									"    pm.expect(responseData.traceId).to.exist.and.to.be.a('string');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is in an acceptable range\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{Localhost}}{{GetById}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Phone is in a valid format\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.data.phone).to.match(/^\\(\\d{3}\\) \\d{3}-\\d{4}$/, \"Phone is not in valid format\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Fax is in a valid format\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.data).to.be.an('object');",
+									"    pm.expect(responseData.data.fax).to.exist.and.to.match(/^\\d{3}-\\d{3}-\\d{4}$/);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'orders' array is present in the response\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.orders).to.exist.and.to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"companyName\": \"string\",\r\n    \"contactName\": \"string\",\r\n    \"contactTitle\": \"string\",\r\n    \"address\": \"string\",\r\n    \"city\": \"string\",\r\n    \"region\": \"string\",\r\n    \"postalCode\": \"string\",\r\n    \"country\": \"string\",\r\n    \"phone\": \"string\",\r\n    \"fax\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{Localhost}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 500\", function () {",
+									"    pm.expect(pm.response.code).to.equal(500);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Error field is present in the response\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.error).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Error field is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.error).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"\" ,\r\n    \"companyName\": \"string\",\r\n    \"contactName\": \"string\",\r\n    \"contactTitle\": \"string\",\r\n    \"address\": \"string\",\r\n    \"city\": \"string\",\r\n    \"region\": \"string\",\r\n    \"postalCode\": \"string\",\r\n    \"country\": \"string\",\r\n    \"phone\": \"string\",\r\n    \"fax\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{Localhost}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 500\", function () {",
+									"    pm.expect(pm.response.code).to.equal(500);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required field - error\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.error).to.exist.and.to.be.a('string');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Error message is not empty\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.error).to.exist.and.to.not.be.empty;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify customer has been successfully deleted\", function () {",
+									"    pm.expect(pm.response.code).to.equal(500, \"Expected response code to be 500\");",
+									"    pm.expect(pm.response.json().error).to.exist.and.to.be.a('string', \"Expected error message to be a string\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{Localhost}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": []
+		},
+		{
+			"name": "Employee",
+			"item": []
+		},
+		{
+			"name": "Order",
+			"item": []
+		},
+		{
+			"name": "OrderDetails",
+			"item": []
+		},
+		{
+			"name": "Product",
+			"item": []
+		},
+		{
+			"name": "Region",
+			"item": []
+		},
+		{
+			"name": "Shipper",
+			"item": []
+		},
+		{
+			"name": "Supplier",
+			"item": []
+		},
+		{
+			"name": "Territory",
+			"item": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Local",
+			"value": "https://localhost:5136/customer"
+		}
+	]
+}

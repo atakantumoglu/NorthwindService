@@ -1,0 +1,89 @@
+openapi: 3.0.0
+info:
+  title: NorthwindService
+  version: 1.0.0
+servers:
+  - url: http://{{localhost}}
+  - url: http://{{localhost}}{{getbyid}}
+tags:
+  - name: Customer
+  - name: Category
+  - name: Employee
+  - name: Order
+  - name: OrderDetails
+  - name: Product
+  - name: Region
+  - name: Shipper
+  - name: Supplier
+  - name: Territory
+paths:
+  /:
+    get:
+      tags:
+        - Customer
+      summary: GetById
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Customer
+      summary: Create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                companyName: string
+                contactName: string
+                contactTitle: string
+                address: string
+                city: string
+                region: string
+                postalCode: string
+                country: string
+                phone: string
+                fax: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - Customer
+      summary: Update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                id: ''
+                companyName: string
+                contactName: string
+                contactTitle: string
+                address: string
+                city: string
+                region: string
+                postalCode: string
+                country: string
+                phone: string
+                fax: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Customer
+      summary: Delete
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
